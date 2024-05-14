@@ -87,10 +87,7 @@
             </section>
             <section class="rotativo " v-show="transmisao.rotativo_visibilidade"
                 :style="{ left: transmisao.rotativo_x + 'vw', top: transmisao.rotativo_y + 'vh',zoom: transmisao.rotativo_z + '%'}">
-                <transition name="slide" mode="out-in">
                     <img class="rotativo_img" :key="carrosel.imagemAtual"  v-bind:src="carrosel.imagemAtual"  >
-                </transition>
-                <!-- src="/pictures/carrossel/adeson pedrosa.jpg" -->
             </section>
         </main>
     </div>

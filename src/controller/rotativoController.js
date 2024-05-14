@@ -37,8 +37,6 @@ const rotativoControler = {
     delete: async (req, res) => {
         try {
             const remover = await Imagem.findAll({ where: { id_imagem: req.query.id } })
-            
-
             let filePath = "public/pictures/carrossel/" + remover[0].url
             if (fs.existsSync(filePath)) {
                 fs.unlinkSync(filePath);
@@ -58,7 +56,13 @@ const rotativoControler = {
             console.log(menssagem)
             await Imagem.update({duracao:menssagem.duracao},{where:{id_imagem:menssagem.id_imagem}})
             io.emit(`imagem_duracao`, menssagem)
+        }),
+        socket.on("imagem_ativo", async function (menssagem) {
+            console.log(menssagem)
+            await Imagem.update({ativo:menssagem.ativo},{where:{id_imagem:menssagem.id_imagem}})
+            io.emit(`imagem_ativo`, menssagem)
         })
+        
     },
     api_carroselAtivo : async (req,res) =>{
         try {

@@ -36,7 +36,9 @@
                                     <tr>
                                         <td>
                                             <div class="center">
-                                                <input type="checkbox" <%=imagem.ativo ? "checked" : "" %> >
+                                                <input v-on:change="imagem_ativo_tx(<%= imagem.id_imagem %>)"
+                                                    id="ativo_<%= imagem.id_imagem %>" type="checkbox"
+                                                    <%=imagem.ativo==="true" ? "checked" : "" %> >
                                             </div>
                                         </td>
                                         <td>
@@ -53,7 +55,8 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <div class="center"><a href="/delete_carrosel?id=<%= imagem.id_imagem %>"><i class="fas fa-trash-alt"></i></a></div>
+                                            <div class="center"><a href="/delete_carrosel?id=<%= imagem.id_imagem %>"><i
+                                                        class="fas fa-trash-alt"></i></a></div>
                                         </td>
                                     </tr>
                                     <% }) %>
@@ -77,10 +80,19 @@
                                 if (socket.id != menssagem.socket_id) {
                                     document.getElementById("duracao_" + menssagem.id_imagem).value = parseInt(menssagem.duracao)
                                 }
-                            });
+                            })
+                            socket.on(`imagem_ativo`, (menssagem) => {
+                                if (socket.id != menssagem.socket_id) {
+                                    document.getElementById("ativo_" + menssagem.id_imagem).checked = menssagem.ativo === "true" ? true:false
+                                }
+                            })
                         },
                         imagem_duracao_tx(event) {
                             socket.emit(`imagem_duracao`, { id_imagem: event, duracao: document.getElementById("duracao_" + event).value, socket_id: socket.id });
+                        },
+                        imagem_ativo_tx(event) {
+                            console.log(document.getElementById("ativo_" + event).checked.toString())
+                            socket.emit(`imagem_ativo`, { id_imagem: event, ativo: document.getElementById("ativo_" + event).checked.toString(), socket_id: socket.id });
                         }
                     },
                 }).mount('#app')

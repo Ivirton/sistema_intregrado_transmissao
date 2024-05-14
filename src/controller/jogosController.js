@@ -18,7 +18,7 @@ const jogoController = {
                 idestadio: req.body.estadio,
                 pontos_time1: 0,
                 pontos_time2: 0,
-                partida:0
+                partida:1
             })
            
             res.redirect('/jogos');
