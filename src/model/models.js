@@ -167,8 +167,8 @@ const Placar = database.define('Placar', {
         references: {
             model: 'Jogo',
             key: 'idjogo',
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE'
+            onDelete: 'SET NULL',
+            onUpdate: 'SET NULL'
         }
     },
     id_transmicao: {

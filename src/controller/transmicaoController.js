@@ -14,7 +14,7 @@ const trasmisaoController = {
             const transmissao = await database.query(`select Placar.id_placar,Transmicao.nome ,Transmicao.id_transmicao,Rotativo.id_rotativo,placar_visibilidade,placar_x,placar_y,placar_z, rotativo_visibilidade,rotativo_x,rotativo_y,rotativo_z,Cronometro.id_cronometro,Cronometro.tipo_cronometro,Cronometro.duracao,
             Cronometro.icone,Cronometro.minuto,Cronometro.segundo
             from Placar,Transmicao,Rotativo,Cronometro
-             where Placar.id_transmicao = Transmicao.id_transmicao and Rotativo.id_rotativo = Transmicao.id_rotativo and Cronometro.id_placar = Placar.id_placar and Transmicao.id_transmicao= ${req.query.id_transmicao}`)
+            where Placar.id_transmicao = Transmicao.id_transmicao and Rotativo.id_rotativo = Transmicao.id_rotativo and Cronometro.id_placar = Placar.id_placar and Transmicao.id_transmicao= ${req.query.id_transmicao}`)
             console.log(transmissao[0][0])
             res.render('receptor', { transmissao: transmissao[0][0] })
         } else {
@@ -75,14 +75,14 @@ const trasmisaoController = {
     },
     socket: async (io, socket) => {
         socket.on("transmissao", async function (menssagem) {
-            if(menssagem.tipo === "transmissao"){
+            if (menssagem.tipo === "transmissao") {
                 const send = {
                     tipo: "receptor",
                     transmissao: await trasmisaoController.getTransmisao(menssagem.id_transmicao),
                     jogo: await trasmisaoController.getJogo(menssagem.idjogo)
                 }
                 io.emit(`transmissao_t${menssagem.id_transmicao}`, send)
-            }else{
+            } else {
                 io.emit(`transmissao_t${menssagem.id_transmicao}`, menssagem)
             }
             console.log(menssagem)
