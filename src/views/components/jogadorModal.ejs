@@ -1,0 +1,38 @@
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Novo Jogador</h5>
+          <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+            <!-- <span aria-hidden="true">&times;</span> -->
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <form action="/create_jogador" method="post">
+            <div class="form-group">
+              <label for="nomeJogador" class="col-form-label">Nome</label>
+              <input type="text" class="form-control" id="nome"  required name="nomeJogador">
+            </div>
+            <div class="form-group">
+              <label for="numero" class="col-form-label">Número</label>
+              <input class="form-control" id="numero" required name="numeroJogador">
+            </div>
+            <div class="form-group">
+              <label for="posicao" class="col-form-label">Posição</label>
+              <input class="form-control" id="posicao" required name="posicaoJogador">
+            </div>
+            <input type="tel" name="id" value="<%= time.id_equipe%>" style="display: none;">
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+ 

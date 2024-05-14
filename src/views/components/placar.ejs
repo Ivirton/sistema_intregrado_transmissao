@@ -1,0 +1,142 @@
+<section class="section card1">
+
+    <div class="linha">
+        <h4>PLACAR</h4>
+
+        <label class="switch">
+            <input type="checkbox" v-model="transmisao.placar_visibilidade"
+                v-on:change="placar_visibilidade_tx(<%= transmissao.id_transmicao %>,<%= transmissao.id_placar %>)">
+            <span class="slider"></span>
+        </label>
+    </div>
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne">
+                    Posição
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="coluna">
+                        <small>Largura</small>
+                        <div class="PB-range-slider-div">
+                            <input type="range" min="0" max="100" v-model="transmisao.placar_x" class="PB-range-slider"
+                                v-on:change="placar_x_tx(<%= transmissao.id_transmicao %>,<%= transmissao.id_placar %>)">
+                            <small class="PB-range-slidervalue">{{transmisao.placar_x}}%</small>
+                        </div>
+                        <small>Altura</small>
+                        <div class="PB-range-slider-div">
+                            <input type="range" min="0" max="100" v-model="transmisao.placar_y" class="PB-range-slider"
+                                v-on:change="placar_y_tx(<%= transmissao.id_transmicao %>,<%= transmissao.id_placar %>)">
+                            <small class="PB-range-slidervalue">{{transmisao.placar_y}}%</small>
+                        </div>
+                        <small>Tamanho</small>
+                        <div class="PB-range-slider-div">
+                            <input type="range" min="0" max="200" v-model="transmisao.placar_z" class="PB-range-slider"
+                                v-on:change="placar_z_tx(<%= transmissao.id_transmicao %>,<%= transmissao.id_placar %>)">
+                            <small class="PB-range-slidervalue">{{transmisao.placar_z}}%</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseTre" aria-expanded="false" aria-controls="collapseTre">
+                    Times
+                </button>
+            </h2>
+            <div id="collapseTre" class="accordion-collapse collapse show " data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="linha">
+                    </div>
+                    <div class="coluna">
+                        <div class="linha">
+                            <a href="/jogos">JOGOS</a>
+                        </div>
+                        <div class="linha">
+                            <div>
+                                <a href="/time?id=<%= jogo.id_equipe1%>">
+                                    {{jogo.nome_time1}}
+                                </a>
+                            </div>
+                            <div style="display: flex; align-items: center;">
+                                <i v-on:click="decrementar_time1(<%= transmissao.id_transmicao %>,<%= jogo.idjogo %>)"
+                                    class="fas fa-minus"></i>
+                                <strong class="pontos"
+                                    id="pontos_time1_transmissao<%= transmissao.id_transmicao %>">{{jogo.pontos_time1}}</strong>
+                                <i v-on:click="incrementar_time1(<%= transmissao.id_transmicao %>,<%= jogo.idjogo %>)"
+                                    class="fas fa-plus"></i>
+                            </div>
+                        </div>
+                        <div class="linha">
+                            <div>
+                                <a href="/time?id=<%= jogo.id_equipe2%>">
+                                    {{jogo.nome_time2}}
+                                </a>
+                            </div>
+                            <div style="display: flex; align-items: center;">
+                                <i v-on:click="decrementar_time2(<%= transmissao.id_transmicao %>,<%= jogo.idjogo %>)"
+                                    class="fas fa-minus"></i>
+                                <strong class="pontos">{{jogo.pontos_time2}}</strong>
+                                <i v-on:click="incrementar_time2(<%= transmissao.id_transmicao %>,<%= jogo.idjogo %>)"
+                                    class="fas fa-plus"></i>
+                            </div>
+                        </div>
+                        <div class="linha">
+                            Partida
+                            <div style="display: flex; align-items: center;">
+                                <i v-on:click="decrementar_partida(<%= transmissao.id_transmicao %>,<%= jogo.idjogo %>)"
+                                    class="fas fa-solid fa-minus"></i>
+                                <strong class="partida">
+                                    {{jogo.partida }}
+                                </strong>
+                                <i v-on:click="incrementar_partida(<%= transmissao.id_transmicao %>,<%= jogo.idjogo %>)"
+                                    class=" fas fa-solid fa-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseTre" aria-expanded="false" aria-controls="collapseTre">
+                    Cronômetro {{ transmisao.minuto < 10 ? '0' + transmisao.minuto : transmisao.minuto
+                            }}:{{ transmisao.segundo < 10 ? '0' + transmisao.segundo : transmisao.segundo}}
+                </button>
+            </h2>
+            <div id="collapseTre" class="accordion-collapse collapse show " data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="coluna">
+                        <div class="linha">
+                            <div>
+                                <select id="selectbox" v-on:change="cronometro_tipo_cronometro_tx"
+                                    v-model="transmisao.tipo_cronometro">
+                                    <option value="" selected="selected" disabled="disabled">Tipo</option>
+                                    <option value="0">Progressivo</option>
+                                    <option value="1">Regressivo</option>
+                                </select>
+                            </div>
+                            <div class="linha" style="width: 69px;border-bottom: 1px solid #00000069;">
+                                <input class="input_numbuer" placeholder="0" type="number"
+                                    v-on:change="cronometro_duracao_tx" v-model="transmisao.duracao">
+                                <small>m</small>
+                            </div>
+
+                            <div style="display: flex;">
+                                <i v-if="transmisao.icone" class="fas fa-pause" v-on:click="cronometro_play_tx"></i>
+                                <i v-else="transmisao.icone" class="fas fa-play" v-on:click="cronometro_play_tx"></i>
+                                <i class="fas fa-stop" v-on:click="cronometro_stop_tx"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,56 @@
+const express = require('express');
+const router = express.Router();
+
+const trasmisaoController = require('../controller/transmicaoController');
+const timeController = require('../controller/timesController');
+const jogadorController = require('../controller/jogadorController');
+const estadioController = require('../controller/estadioController');
+const jogoController = require('../controller/jogosController');
+const rotativoControler = require('../controller/rotativoController');
+
+
+
+
+//TRANSMIsSÃO
+router.get('/receptor', trasmisaoController.receptor)
+router.get('/transmisao', trasmisaoController.transmisao)
+router.get('/transmisoes', trasmisaoController.transmisoes)
+router.post('/createtransmisao', trasmisaoController.create)
+router.get('/deletetransmisao', trasmisaoController.delete);
+
+//TIME
+router.get('/times',timeController.findAll)
+router.post('/create_time',timeController.create)
+router.get('/time', timeController.find);
+router.get('/deletetime', timeController.delete);
+router.post('/updatetime',timeController.update)
+
+//ESTÁDIO
+router.post('/create_estadio',estadioController.create)
+router.get('/estadios', estadioController.findAll);
+router.get('/delete_estadio',estadioController.delete)
+
+//JOGADOR
+router.post('/create_jogador',jogadorController.create)
+router.post('/update_jogador',jogadorController.update)
+router.get('/jogador', jogadorController.find);
+router.get('/delete_jogador',jogadorController.delete)
+
+// JOGOS
+router.get('/jogos',jogoController.findAll);
+router.post('/create_jogo',jogoController.create)
+router.get('/deletejogo',jogoController.delete);
+
+//Rotativo Carrosel
+router.get('/carrossel',rotativoControler.findAll);
+
+router.post('/create_carrosel', rotativoControler.upload.single('imagem'),rotativoControler.create);
+router.get('/delete_carrosel',rotativoControler.delete);
+router.get('/api_carroselAtivo',rotativoControler.api_carroselAtivo);
+
+
+
+
+
+
+module.exports = router;

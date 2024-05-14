@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receptor <%= transmissao.nome %>
+    </title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="receptor/style.css">
+</head>
+
+<body>
+    <div id="app">
+        <img class="fundo" src="/pictures/fundo2.jpg" alt="" srcset="">
+        <!-- <video class="fundo" src="/video/anuncios/fnial.mp4" ></video> -->
+        <main class="widgets_content">
+            <section v-show="transmisao.placar_visibilidade" class="glass scorebord"
+                :style="{ left: transmisao.placar_x + 'vw', top: transmisao.placar_y + 'vh',zoom: transmisao.placar_z + '%'}">
+                <strong>{{jogo.partida}}t</strong>
+                <div class="cronometro">
+                    <strong>{{ transmisao.minuto < 10 ? '0' + transmisao.minuto : transmisao.minuto }}</strong>
+                    <strong>:</strong>
+                    <strong>{{ transmisao.segundo < 10 ? '0' + transmisao.segundo : transmisao.segundo }}</strong>
+                </div>
+                |
+                <strong class="name">{{jogo.nome_time1}}</strong>
+                <strong class="points glass">{{jogo.pontos_time1}}</strong>
+                <strong class="points glass">{{jogo.pontos_time2}}</strong>
+                <strong class="name">{{jogo.nome_time2}}</strong>
+
+            </section>
+            <section id="widgets_ads" class="off">
+                <img id="widgets_img">
+            </section>
+            <section class="glass off ">
+                <video class="video" src="/video/anuncios/ads.mp4"></video>
+            </section>
+            <section class="glass off">
+                <h1>Carregando</h1>
+            </section>
+            <section id="training" class="glass training off">
+                <div class="head">
+                    <p>Jogadores</p>
+                    <h1 id="team">FLAMENGO</h1>
+                </div>
+                <div class="players">
+                    <article class="glass row">
+                        <h1 class="number">10</h1>
+                        <p class="name">Ivirton Nayron</p>
+                    </article>
+                    <article class="glass row">
+                        <h1 class="number">5</h1>
+                        <p class="name">Neymar Jr</p>
+                    </article>
+                    <article class="glass row">
+                        <h1 class="number">5</h1>
+                        <p class="name">PATO</p>
+                    </article>
+                    <article class="glass row">
+                        <h1 class="number">2</h1>
+                        <p class="name">MESSI</p>
+                    </article>
+                    <article class="glass row">
+                        <h1 class="number">7</h1>
+                        <p class="name">CRISTIANO RONALDO</p>
+                    </article>
+
+                </div>
+                <div class="head">
+                    <p>Técnico</p>
+                    <h3 id="team">DUNGA</h3>
+                </div>
+            </section>
+            <section class="glass off">
+                <div class="card_yellon"></div>
+                <div>
+                    <h3>Ivirton nayron </h3>
+                </div>
+            </section>
+            <section class="glass lowerthirds off">
+                <h2>Ivirton</h2>
+                <hr>
+                <p>Programador </p>
+            </section>
+            <section class="rotativo " v-show="transmisao.rotativo_visibilidade"
+                :style="{ left: transmisao.rotativo_x + 'vw', top: transmisao.rotativo_y + 'vh',zoom: transmisao.rotativo_z + '%'}">
+                <transition name="slide" mode="out-in">
+                    <img class="rotativo_img" :key="carrosel.imagemAtual"  v-bind:src="carrosel.imagemAtual"  >
+                </transition>
+                <!-- src="/pictures/carrossel/adeson pedrosa.jpg" -->
+            </section>
+        </main>
+    </div>
+</body>
+<script>
+    window.addEventListener("load", async () => {
+        appp.transmisao.id_transmicao = "<%= transmissao.id_transmicao %>"
+        appp.transmisao.id_placar = "<%= transmissao.id_placar %>"
+        await appp.listen()
+        // appp.atualizarCarrosel()
+        await appp.proximo()
+        await appp.carrosel_play()
+        
+    })
+
+</script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="receptor/rx.js"></script>
+
+</html>

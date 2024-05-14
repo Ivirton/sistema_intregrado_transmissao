@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <%- include('./components/header.ejs')%>
+        <div id="app">
+            <article class="body">
+                <%- include('./components/jogoModal.ejs')%>
+                    <section class="section card1">
+                        <div class="linha">
+                            <h3>Jogos</h3>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal" data-bs-whatever="@mdo">Novo</button>
+                        </div>
+                        <div style="display: flex; flex-wrap: wrap;  justify-content: space-evenly;">
+                            <% jogos.forEach(jogo=> { %>
+                                <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                    <div class="card-header">
+                                        <div class="linha">
+                                            <div class="dropdown">
+                                                <button class="btn btn dropdown-toggle" type="button"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Transmissão
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <% transmisoes.forEach(transmisao=> { %>
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                                href="/transmisao?id=<%= transmisao.id_transmicao%>&idjogo= <%= jogo.idjogo %> ">
+                                                                <%= transmisao.nome %>
+                                                            </a>
+                                                        </li>
+                                                        <% })%>
+                                                </ul>
+                                            </div>
+                                            <a class="btn btn-link"
+                                                href="/deletejogo?id=<%= jogo.idjogo  %>">Excluir</a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-title">
+
+                                            <%= jogo.nome_time1 %> <strong>
+                                                    <%= jogo.pontos_time1 %>
+                                                </strong> X <strong>
+                                                    <%= jogo.pontos_time2 %>
+                                                </strong>
+                                                <%= jogo.nome_time2 %>
+                                        </p>
+                                        
+                                        <small class="card-text">
+
+                                            <%= jogo.data %>
+                                                <%= jogo.estadio %>
+                                        </small>
+
+                                    </div>
+                                </div>
+                                <%})%>
+                        </div>
+                    </section>
+            </article>
+        </div>
+        <script>
+            const time1 = document.getElementById('time1')
+            const time2 = document.getElementById('time2')
+            time1.addEventListener('change', () => {
+                if (time1.value === time2.value) {
+                    time1.value = 0
+                }
+            })
+            time2.addEventListener('change', () => {
+                if (time1.value === time2.value) {
+                    time2.value = 0
+                }
+            })
+        </script>
+
+        
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+            integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+            crossorigin="anonymous"></script>
+</body>
+
+</html>
