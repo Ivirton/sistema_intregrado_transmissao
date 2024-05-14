@@ -12,6 +12,7 @@ const rotativoControler = require('../controller/rotativoController');
 
 
 //TRANSMIsSÃO
+router.get('/', trasmisaoController.transmisoes)
 router.get('/receptor', trasmisaoController.receptor)
 router.get('/transmisao', trasmisaoController.transmisao)
 router.get('/transmisoes', trasmisaoController.transmisoes)
