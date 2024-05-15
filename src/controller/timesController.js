@@ -9,17 +9,19 @@ const timeController = {
         } catch (error) {
             console.log(error)
         }
-        
+
     },
     findAll: async (req, res) => {
-        res.render('times', { times: await Time.findAll() })
+        res.render('times', {
+            times: await Time.findAll({order: [['nome', 'ASC']] })
+        })
     },
     create: async (req, res) => {
         try {
             const { nomeTime, estadoTime, cidadeTime, esculdoTime, id, categoriaTime } = req.body;
             const novoTime = await Time.create({
                 nome: nomeTime,
-                categoria:categoriaTime,
+                categoria: categoriaTime,
                 estado: estadoTime,
                 cidade: cidadeTime,
                 esculdo: null
@@ -71,7 +73,7 @@ const timeController = {
             console.error("Erro ao atualizar o time:", error);
             // res.status(500).send("Erro interno do servidor ao atualizar o time.");
         }
-     
+
     }
 }
 
