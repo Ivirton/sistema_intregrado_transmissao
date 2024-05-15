@@ -10,7 +10,7 @@ const estadioController = {
         }
     },
     findAll: async (req, res) => {
-        const estadios = await Estadio.findAll()
+        const estadios = await Estadio.findAll({order: [['nome', 'ASC']] })
         res.render('estadios', { estadios: estadios })
 
     },

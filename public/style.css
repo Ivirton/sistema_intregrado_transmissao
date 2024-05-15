@@ -14,6 +14,9 @@ body {
   box-sizing: border-box;
   color: rgb(34, 33, 33);
 }
+.logo{
+  width: 100px;
+}
 .pontos {
   margin-left: 5px;
   margin-right: 5px;
