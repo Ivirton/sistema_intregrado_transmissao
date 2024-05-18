@@ -291,7 +291,7 @@ const Imagem = database.define('Imagem', {
     duracao: {
         type: DataTypes.INTEGER,
         allowNull: false
-    }, 
+    },
     ativo: {
         type: DataTypes.STRING,
         allowNull: false
@@ -300,5 +300,50 @@ const Imagem = database.define('Imagem', {
     tableName: 'Imagem',
     timestamps: false
 });
-
-module.exports = { Tranmiscao, Time, Rotativo, Placar, Jogo, Jogador, Estadio, Cronometro, Imagem }
+const Merchan = database.define('Merchan', {
+    id_merchan: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    url: {
+        type: DataTypes.STRING(),
+        allowNull: false
+    },
+    ativo: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+}, {
+    tableName: 'Merchan',
+    timestamps: false
+});
+const Overlay = database.define('Overlay', {
+    id_overlay: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    overlay_visibilidade: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    fundo:{
+        type: DataTypes.STRING,
+        allowNull: true 
+    },
+    id_transmicao: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        references: {
+            model: 'Transmicao',
+            key: 'id_transmicao',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE'
+        }
+    }
+}, {
+    tableName: 'Overlay',
+    timestamps: false
+});
+module.exports = { Tranmiscao, Time, Rotativo, Placar, Jogo, Jogador, Estadio, Cronometro, Imagem, Merchan,Overlay }

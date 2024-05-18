@@ -49,7 +49,8 @@ const appp = createApp({
         id_cronometro: 0,
         minuto: 3,
         segundo: 0,
-        tipo_cronometro: null
+        tipo_cronometro: null,
+        overlay_visibilidade: null
       },
       jogo: {
         idjogo: 0,
@@ -69,6 +70,7 @@ const appp = createApp({
           this.transmisao = menssagem.transmissao
           this.transmisao.placar_visibilidade = menssagem.transmissao.placar_visibilidade === "true" ? true : false
           this.transmisao.rotativo_visibilidade = menssagem.transmissao.rotativo_visibilidade === "true" ? true : false
+          this.transmisao.overlay_visibilidade = menssagem.transmissao.overlay_visibilidade === "true" ? true : false
           this.transmisao.icone = menssagem.transmissao.icone === "true" ? true : false
           this.jogo = menssagem.jogo
         } else {
@@ -163,8 +165,17 @@ const appp = createApp({
       enviarTransmissaoSocket(this.transmisao.id_transmicao, "id_cronometro", this.transmisao.id_cronometro, "stop", "stop")
       this.transmisao.icone = false
       enviarTransmissaoSocket(this.transmisao.id_transmicao, "id_cronometro", this.transmisao.id_cronometro, "icone", this.transmisao.icone)
-
     },
+    overlay_visibilidade_tx() {
+      this.transmisao.placar_visibilidade = !this.transmisao.overlay_visibilidade
+      this.placar_visibilidade_tx()
+      this.transmisao.rotativo_visibilidade = !this.transmisao.overlay_visibilidade
+      this.rotativo_visibilidade_tx()
+      enviarTransmissaoSocket(this.transmisao.id_transmicao, "id_overlay", this.transmisao.id_overlay, "overlay_visibilidade", this.transmisao.overlay_visibilidade)
+    },
+    overlay_imagem_tx(fundo) {
+      enviarTransmissaoSocket(this.transmisao.id_transmicao, "id_overlay", this.transmisao.id_overlay, "fundo", fundo)
+    }
   },
 }).mount('#app')
 

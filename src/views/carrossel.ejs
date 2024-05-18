@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,18 +9,18 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="../style.css">
-  <link rel="icon" href="/pictures/sistem/logo_podium.png" type="image/png">
+    <link rel="icon" href="/pictures/sistem/logo_podium.png" type="image/png">
 
 </head>
-
 <body>
     <%- include('./components/header.ejs')%>
         <%- include('./components/carroselModel.ejs')%>
+        <%- include('./components/merchanlModel.ejs')%>
             <main id="app">
                 <article class="body">
                     <section class="section card1">
                         <div class="linha">
-                            <h3 class="mb-4">Carrosel</h3>
+                            <h3 class="mb-4">Rotativo</h3>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal" data-bs-whatever="@mdo">Novo</button>
                         </div>
@@ -70,14 +69,34 @@
                     <section class="section card1">
                         <div class="linha">
                             <h3 class="mb-4">Merchan</h3>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal1" data-bs-target="#exampleModal1"
-                              data-bs-whatever="@mdo">Novo</button>
-                          </div>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModalMerchan" data-bs-whatever="@mdo">Novo</button>
+                        </div>
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Imagem</th>
+                                    <th></th>
+                            </thead>
+                            <tbody>
+                                <% merchans.forEach(merchan=> { %>
+                                    <tr>
+                                        <td>
+                                            <div class="center">
+                                                <img class="carrosel" src="/pictures/merchan/<%= merchan.url %>">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="center"><a href="/delete_merchan?id=<%= merchan.id_merchan %>"><i
+                                                        class="fas fa-trash-alt"></i></a></div>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                        </table>
                     </section>
                 </article>
             </main>
-
-
             <script src="/socket.io/socket.io.js"></script>
             <script>
                 socket = io();
@@ -96,7 +115,7 @@
                             })
                             socket.on(`imagem_ativo`, (menssagem) => {
                                 if (socket.id != menssagem.socket_id) {
-                                    document.getElementById("ativo_" + menssagem.id_imagem).checked = menssagem.ativo === "true" ? true:false
+                                    document.getElementById("ativo_" + menssagem.id_imagem).checked = menssagem.ativo === "true" ? true : false
                                 }
                             })
                         },

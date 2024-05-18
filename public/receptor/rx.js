@@ -82,6 +82,7 @@ const appp = createApp({
           this.transmisao = menssagem.transmissao
           this.transmisao.placar_visibilidade = menssagem.transmissao.placar_visibilidade === "true" ? true : false
           this.transmisao.rotativo_visibilidade = menssagem.transmissao.rotativo_visibilidade === "true" ? true : false
+          this.transmisao.overlay_visibilidade = menssagem.transmissao.overlay_visibilidade === "true" ? true : false
           this.transmisao.icone = menssagem.transmissao.icone === "true" ? true : false
           this.jogo = menssagem.jogo
         } else {
@@ -214,7 +215,7 @@ const appp = createApp({
           this.proximo()
           this.carrosel.contador = 0
         }
-        console.log(this.carrosel.contador)
+        // console.log(this.carrosel.contador)
         this.carrosel.contador++
       }, 1000)
     },

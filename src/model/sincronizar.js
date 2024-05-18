@@ -1,12 +1,12 @@
-const {Estadio,Tranmiscao,Rotativo,Placar,Jogo,Cronometro,Imagem,Time,Jogador}= require("./models");
+const { Estadio, Tranmiscao, Rotativo, Placar, Jogo, Cronometro, Imagem, Time, Jogador, Overlay, Merchan } = require("./models");
 Imagem.sync()
-.then(() => {
-    console.log('Tabela IMAGEM sincronizada com sucesso.');
-})
+    .then(() => {
+        console.log('Tabela IMAGEM sincronizada com sucesso.');
+    })
 Rotativo.sync()
-.then(() => {
-    console.log('Tabela Rotativo sincronizada com sucesso.');
-})
+    .then(() => {
+        console.log('Tabela Rotativo sincronizada com sucesso.');
+    })
 Tranmiscao.sync()
     .then(() => {
         console.log('Tabela transmisao sincronizada com sucesso.');
@@ -47,6 +47,20 @@ Time.sync()
 Estadio.sync()
     .then(() => {
         console.log('Tabela Estadio sincronizada com sucesso.');
+    })
+    .catch(error => {
+        console.error('Erro ao sincronizar a tabela:', error);
+    });
+Overlay.sync()
+    .then(() => {
+        console.log('Tabela Overlay sincronizada com sucesso.');
+    })
+    .catch(error => {
+        console.error('Erro ao sincronizar a tabela:', error);
+    });
+Merchan.sync()
+    .then(() => {
+        console.log('Tabela Merchan sincronizada com sucesso.');
     })
     .catch(error => {
         console.error('Erro ao sincronizar a tabela:', error);

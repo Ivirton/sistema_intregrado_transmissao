@@ -1,8 +1,8 @@
-const { Tranmiscao, Rotativo, Placar, Jogo, Cronometro } = require("../model/models")
+const { Tranmiscao, Rotativo, Placar, Jogo, Cronometro, Merchan, Overlay } = require("../model/models")
 const database = require("../config/database");
 const trasmisaoController = {
     getTransmisao: async function (id_transmicao) {
-        const data = await database.query("select * from Placar,Transmicao,Rotativo,Cronometro where Placar.id_transmicao = Transmicao.id_transmicao and Rotativo.id_rotativo = Transmicao.id_rotativo and Cronometro.id_placar = Placar.id_placar and Transmicao.id_transmicao=" + id_transmicao)
+        const data = await database.query("select * from Placar,Transmicao,Rotativo,Cronometro,Overlay where Placar.id_transmicao = Transmicao.id_transmicao and Rotativo.id_rotativo = Transmicao.id_rotativo and Cronometro.id_placar = Placar.id_placar  and Overlay.id_transmicao = Transmicao.id_transmicao and Transmicao.id_transmicao=" + id_transmicao)
         return data[0][0]
     },
     getJogo: async function (idjogo) {
@@ -30,11 +30,11 @@ const trasmisaoController = {
         if (req.query.idjogo && req.query.id) {
             const jogo = await trasmisaoController.getJogo(req.query.idjogo)
             const transmissao = await trasmisaoController.getTransmisao(req.query.id)
-            console.log(req.query.idjogo)
+            const merchans = await Merchan.findAll()
             await database.query(`UPDATE Placar SET idjogo =${req.query.idjogo} WHERE id_placar =${transmissao.id_placar}`)
             // await Placar.update({ idjogo: req.query.idjogo }, { where: { id_placar: transmissao.id_placar } });
 
-            res.render('transmisao', { transmissao: transmissao, jogo: jogo });
+            res.render('transmisao', { transmissao: transmissao, jogo: jogo, merchans: merchans });
         }
     },
     create: async (req, res) => {
@@ -66,7 +66,7 @@ const trasmisaoController = {
             icone: "play",
             duracao: 0
         })
-        console.log(novoTransmisao);
+        await Overlay.create({ ativo: false, id_transmicao: novoTransmisao.id_transmicao })
         res.redirect('/transmisoes');
     },
     delete: async (req, res) => {
@@ -141,6 +141,12 @@ const trasmisaoController = {
                     case "segundo":
                         await Cronometro.update({ segundo: menssagem.segundo }, { where: { id_cronometro: menssagem.id_cronometro } });
                         break
+                    case "overlay_visibilidade":
+                        await database.query(`UPDATE Overlay SET overlay_visibilidade= "${menssagem.overlay_visibilidade}" WHERE id_overlay = ${menssagem.id_overlay}`)
+                        break
+                        case "fundo":
+                            await database.query(`UPDATE Overlay SET fundo= "${menssagem.fundo}" WHERE id_overlay = ${menssagem.id_overlay}`)
+                            break
                 }
                 io.emit(`transmissao_t${menssagem.id_transmicao}`, menssagem)
             })

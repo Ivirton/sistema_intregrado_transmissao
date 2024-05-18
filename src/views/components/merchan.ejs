@@ -2,7 +2,9 @@
     <div class="linha">
         <h4>Merchan</h4>
         <label class="switch">
-            <input type="checkbox">
+            <input type="checkbox" v-model="transmisao.overlay_visibilidade"
+            v-on:change="overlay_visibilidade_tx">
+            
             <span class="slider"></span>
         </label>
     </div>
@@ -17,26 +19,21 @@
             <div id="merchan_collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <div>
-
+                        <div class="linha" style="justify-content: end;">
+                            <a href="/carrossel">Anúncios</a>
+                        </div>
                         <ul class="lista">
+                            <% merchans.forEach(merchan=> { %>
+                                    <label for="radio<%= merchan.id_merchan %>" class="item">
+                                        <input type="radio" id="radio<%= merchan.id_merchan %>"
+                                        name="opcao" class="radio" value="/pictures/merchan/<%= merchan.url %>"
+                                        v-on:click="overlay_imagem_tx('/pictures/merchan/<%= merchan.url %>')">
 
-
-                            <label for="radio1" class="item">
-                                <input type="radio" id="radio1" name="opcao" class="radio">
-                                <img src="/pictures/merchan/solar.png" alt="Imagem" class="imagem">
-
-                            </label>
-
-
-
-                            <label for="radio2" class="item">
-                                <input type="radio" id="radio2" name="opcao" class="radio">
-                                <img src="/pictures/merchan/solar.png" alt="Imagem" class="imagem">
-                            </label>
-
-                            <!-- Adicione mais itens conforme necessário -->
+                                        <img src="/pictures/merchan/<%= merchan.url %>"class="imagem">
+                                        <a href="/delete_merchan?id=<%= merchan.id_merchan %>"><i class="fas fa-trash-alt"></i></a>
+                                    </label>
+                            <% }) %>
                         </ul>
-
                     </div>
                 </div>
             </div>

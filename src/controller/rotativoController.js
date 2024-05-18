@@ -1,7 +1,7 @@
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-const { Imagem } = require('../model/models');
+const { Imagem, Merchan } = require('../model/models');
 // Configuração do Multer para o upload de imagens
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -32,7 +32,9 @@ const rotativoControler = {
     },
     findAll: async (req, res) => {
         const imagens = await Imagem.findAll()
-        res.render('carrossel',{imagens:imagens})
+        const merchans = await Merchan.findAll()
+        console.log(merchans)
+        res.render('carrossel',{imagens:imagens,merchans:merchans})
     },
     delete: async (req, res) => {
         try {

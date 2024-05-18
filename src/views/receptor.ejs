@@ -16,8 +16,6 @@
 
 <body>
     <div id="app">
-        <!-- <img class="fundo" src="/pictures/fundo2.jpg" alt="" srcset=""> -->
-        <!-- <video class="fundo" src="/video/anuncios/fnial.mp4" ></video> -->
         <main class="widgets_content">
             <section v-show="transmisao.placar_visibilidade" class="glass scorebord"
                 :style="{ left: transmisao.placar_x + 'vw', top: transmisao.placar_y + 'vh',zoom: transmisao.placar_z + '%'}">
@@ -34,64 +32,15 @@
                 <strong class="name">{{jogo.nome_time2}}</strong>
 
             </section>
-            <section id="widgets_ads" class="off">
-                <img id="widgets_img">
-            </section>
-            <section class="glass off ">
-                <video class="video" src="/video/anuncios/ads.mp4"></video>
-            </section>
-            <section class="glass off">
-                <h1>Carregando</h1>
-            </section>
-            <section id="training" class="glass training off">
-                <div class="head">
-                    <p>Jogadores</p>
-                    <h1 id="team">FLAMENGO</h1>
-                </div>
-                <div class="players">
-                    <article class="glass row">
-                        <h1 class="number">10</h1>
-                        <p class="name">Ivirton Nayron</p>
-                    </article>
-                    <article class="glass row">
-                        <h1 class="number">5</h1>
-                        <p class="name">Neymar Jr</p>
-                    </article>
-                    <article class="glass row">
-                        <h1 class="number">5</h1>
-                        <p class="name">PATO</p>
-                    </article>
-                    <article class="glass row">
-                        <h1 class="number">2</h1>
-                        <p class="name">MESSI</p>
-                    </article>
-                    <article class="glass row">
-                        <h1 class="number">7</h1>
-                        <p class="name">CRISTIANO RONALDO</p>
-                    </article>
-
-                </div>
-                <div class="head">
-                    <p>Técnico</p>
-                    <h3 id="team">DUNGA</h3>
-                </div>
-            </section>
-            <section class="glass off">
-                <div class="card_yellon"></div>
-                <div>
-                    <h3>Ivirton nayron </h3>
-                </div>
-            </section>
-            <section class="glass lowerthirds off">
-                <h2>Ivirton</h2>
-                <hr>
-                <p>Programador </p>
-            </section>
             <section class="rotativo " v-show="transmisao.rotativo_visibilidade"
                 :style="{ left: transmisao.rotativo_x + 'vw', top: transmisao.rotativo_y + 'vh',zoom: transmisao.rotativo_z + '%'}">
                     <img class="rotativo_img" :key="carrosel.imagemAtual"  v-bind:src="carrosel.imagemAtual"  >
             </section>
         </main>
+        <section v-show="transmisao.overlay_visibilidade" class="merchan">
+            <!-- <img class="carrosel" src="/pictures/merchan/solar.png"> -->
+            <img class="carrosel" v-bind:src="transmisao.fundo">
+        </section>
     </div>
 </body>
 <script>
