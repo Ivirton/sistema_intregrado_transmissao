@@ -17,7 +17,7 @@
     <%- include('./components/header.ejs')%>
         <div id="app">
             <article class="body">
-                <%- include('./components/jogoModal.ejs')%>
+                <%- include('./components/modal/jogoModal.ejs')%>
                     <section class="section card1">
                         <div class="linha">
                             <h3>Jogos</h3>
@@ -38,7 +38,7 @@
                                                     <% transmisoes.forEach(transmisao=> { %>
                                                         <li>
                                                             <a class="dropdown-item"
-                                                                href="/transmisao?id=<%= transmisao.id_transmicao%>&idjogo= <%= jogo.idjogo %> ">
+                                                                href="/transmisao?id=<%= transmisao.id_transmissao%>&idjogo= <%= jogo.idjogo %> ">
                                                                 <%= transmisao.nome %>
                                                             </a>
                                                         </li>
@@ -51,7 +51,6 @@
                                     </div>
                                     <div class="card-body">
                                         <p class="card-title">
-
                                             <%= jogo.nome_time1 %> <strong>
                                                     <%= jogo.pontos_time1 %>
                                                 </strong> X <strong>
@@ -59,13 +58,10 @@
                                                 </strong>
                                                 <%= jogo.nome_time2 %>
                                         </p>
-                                        
                                         <small class="card-text">
-
                                             <%= jogo.data %>
                                                 <%= jogo.estadio %>
                                         </small>
-
                                     </div>
                                 </div>
                                 <%})%>

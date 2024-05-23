@@ -5,7 +5,7 @@
 
         <label class="switch">
             <input type="checkbox" v-model="transmisao.placar_visibilidade"
-                v-on:change="placar_visibilidade_tx(<%= transmissao.id_transmicao %>,<%= transmissao.id_placar %>)">
+                v-on:change="placar_visibilidade_tx(<%= transmissao.id_transmissao %>,<%= transmissao.id_placar %>)">
             <span class="slider"></span>
         </label>
     </div>
@@ -23,19 +23,19 @@
                         <small>Largura</small>
                         <div class="PB-range-slider-div">
                             <input type="range" min="0" max="100" v-model="transmisao.placar_x" class="PB-range-slider"
-                                v-on:change="placar_x_tx(<%= transmissao.id_transmicao %>,<%= transmissao.id_placar %>)">
+                                v-on:change="placar_x_tx(<%= transmissao.id_transmissao %>,<%= transmissao.id_placar %>)">
                             <small class="PB-range-slidervalue">{{transmisao.placar_x}}%</small>
                         </div>
                         <small>Altura</small>
                         <div class="PB-range-slider-div">
                             <input type="range" min="0" max="100" v-model="transmisao.placar_y" class="PB-range-slider"
-                                v-on:change="placar_y_tx(<%= transmissao.id_transmicao %>,<%= transmissao.id_placar %>)">
+                                v-on:change="placar_y_tx(<%= transmissao.id_transmissao %>,<%= transmissao.id_placar %>)">
                             <small class="PB-range-slidervalue">{{transmisao.placar_y}}%</small>
                         </div>
                         <small>Tamanho</small>
                         <div class="PB-range-slider-div">
                             <input type="range" min="0" max="200" v-model="transmisao.placar_z" class="PB-range-slider"
-                                v-on:change="placar_z_tx(<%= transmissao.id_transmicao %>,<%= transmissao.id_placar %>)">
+                                v-on:change="placar_z_tx(<%= transmissao.id_transmissao %>,<%= transmissao.id_placar %>)">
                             <small class="PB-range-slidervalue">{{transmisao.placar_z}}%</small>
                         </div>
                     </div>
@@ -64,11 +64,11 @@
                                 </a>
                             </div>
                             <div style="display: flex; align-items: center;">
-                                <i v-on:click="decrementar_time1(<%= transmissao.id_transmicao %>,<%= jogo.idjogo %>)"
+                                <i v-on:click="decrementar_time1(<%= transmissao.id_transmissao %>,<%= jogo.idjogo %>)"
                                     class="fas fa-minus"></i>
                                 <strong class="pontos"
-                                    id="pontos_time1_transmissao<%= transmissao.id_transmicao %>">{{jogo.pontos_time1}}</strong>
-                                <i v-on:click="incrementar_time1(<%= transmissao.id_transmicao %>,<%= jogo.idjogo %>)"
+                                    id="pontos_time1_transmissao<%= transmissao.id_transmissao %>">{{jogo.pontos_time1}}</strong>
+                                <i v-on:click="incrementar_time1(<%= transmissao.id_transmissao %>,<%= jogo.idjogo %>)"
                                     class="fas fa-plus"></i>
                             </div>
                         </div>
@@ -79,22 +79,22 @@
                                 </a>
                             </div>
                             <div style="display: flex; align-items: center;">
-                                <i v-on:click="decrementar_time2(<%= transmissao.id_transmicao %>,<%= jogo.idjogo %>)"
+                                <i v-on:click="decrementar_time2(<%= transmissao.id_transmissao %>,<%= jogo.idjogo %>)"
                                     class="fas fa-minus"></i>
                                 <strong class="pontos">{{jogo.pontos_time2}}</strong>
-                                <i v-on:click="incrementar_time2(<%= transmissao.id_transmicao %>,<%= jogo.idjogo %>)"
+                                <i v-on:click="incrementar_time2(<%= transmissao.id_transmissao %>,<%= jogo.idjogo %>)"
                                     class="fas fa-plus"></i>
                             </div>
                         </div>
                         <div class="linha">
                             Partida
                             <div style="display: flex; align-items: center;">
-                                <i v-on:click="decrementar_partida(<%= transmissao.id_transmicao %>,<%= jogo.idjogo %>)"
+                                <i v-on:click="decrementar_partida(<%= transmissao.id_transmissao %>,<%= jogo.idjogo %>)"
                                     class="fas fa-solid fa-minus"></i>
                                 <strong class="partida">
                                     {{jogo.partida }}
                                 </strong>
-                                <i v-on:click="incrementar_partida(<%= transmissao.id_transmicao %>,<%= jogo.idjogo %>)"
+                                <i v-on:click="incrementar_partida(<%= transmissao.id_transmissao %>,<%= jogo.idjogo %>)"
                                     class=" fas fa-solid fa-plus"></i>
                             </div>
                         </div>
@@ -115,7 +115,7 @@
                     <div class="coluna">
                         <div class="linha">
                             <div>
-                                <select id="selectbox" v-on:change="cronometro_tipo_cronometro_tx"
+                                <select class="form-select" id="selectbox" v-on:change="cronometro_tipo_cronometro_tx"
                                     v-model="transmisao.tipo_cronometro">
                                     <option value="" selected="selected" disabled="disabled">Tipo</option>
                                     <option value="0">Progressivo</option>

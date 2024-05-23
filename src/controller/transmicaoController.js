@@ -1,8 +1,8 @@
-const { Tranmiscao, Rotativo, Placar, Jogo, Cronometro, Merchan, Overlay } = require("../model/models")
+const { Transmissao, Rotativo, Placar, Jogo, Cronometro, Merchan, Overlay } = require("../model/models")
 const database = require("../config/database");
 const trasmisaoController = {
-    getTransmisao: async function (id_transmicao) {
-        const data = await database.query("select * from Placar,Transmicao,Rotativo,Cronometro,Overlay where Placar.id_transmicao = Transmicao.id_transmicao and Rotativo.id_rotativo = Transmicao.id_rotativo and Cronometro.id_placar = Placar.id_placar  and Overlay.id_transmicao = Transmicao.id_transmicao and Transmicao.id_transmicao=" + id_transmicao)
+    getTransmisao: async function (id_transmissao) {
+        const data = await database.query("select * from Placar,Transmissao,Rotativo,Cronometro,Overlay where Placar.id_transmissao = Transmissao.id_transmissao and Rotativo.id_transmissao = Transmissao.id_transmissao and Cronometro.id_placar = Placar.id_placar  and Overlay.id_transmissao = Transmissao.id_transmissao and Transmissao.id_transmissao=" + id_transmissao)
         return data[0][0]
     },
     getJogo: async function (idjogo) {
@@ -10,11 +10,11 @@ const trasmisaoController = {
         return data[0][0]
     },
     receptor: async (req, res) => {
-        if (req.query.id_transmicao) {
-            const transmissao = await database.query(`select Placar.id_placar,Transmicao.nome ,Transmicao.id_transmicao,Rotativo.id_rotativo,placar_visibilidade,placar_x,placar_y,placar_z, rotativo_visibilidade,rotativo_x,rotativo_y,rotativo_z,Cronometro.id_cronometro,Cronometro.tipo_cronometro,Cronometro.duracao,
+        if (req.query.id_transmissao) {
+            const transmissao = await database.query(`select Placar.id_placar,Transmissao.nome ,Transmissao.id_transmissao,Rotativo.id_rotativo,placar_visibilidade,placar_x,placar_y,placar_z, rotativo_visibilidade,rotativo_x,rotativo_y,rotativo_z,Cronometro.id_cronometro,Cronometro.tipo_cronometro,Cronometro.duracao,
             Cronometro.icone,Cronometro.minuto,Cronometro.segundo
-            from Placar,Transmicao,Rotativo,Cronometro
-            where Placar.id_transmicao = Transmicao.id_transmicao and Rotativo.id_rotativo = Transmicao.id_rotativo and Cronometro.id_placar = Placar.id_placar and Transmicao.id_transmicao= ${req.query.id_transmicao}`)
+            from Placar,Transmissao,Rotativo,Cronometro
+            where Placar.id_transmissao = Transmissao.id_transmissao and Rotativo.id_transmissao = Transmissao.id_transmissao and Cronometro.id_placar = Placar.id_placar and Transmissao.id_transmissao=${req.query.id_transmissao}`)
             console.log(transmissao[0][0])
             res.render('receptor', { transmissao: transmissao[0][0] })
         } else {
@@ -23,7 +23,7 @@ const trasmisaoController = {
 
     },
     transmisoes: async (req, res) => {
-        const transmisoes = await Tranmiscao.findAll();
+        const transmisoes = await Transmissao.findAll();
         res.render('transmisoes', { transmisoes: transmisoes });
     },
     transmisao: async (req, res) => {
@@ -31,46 +31,52 @@ const trasmisaoController = {
             const jogo = await trasmisaoController.getJogo(req.query.idjogo)
             const transmissao = await trasmisaoController.getTransmisao(req.query.id)
             const merchans = await Merchan.findAll()
+            console.log({transmissao: transmissao, jogo: jogo, merchans: merchans })
             await database.query(`UPDATE Placar SET idjogo =${req.query.idjogo} WHERE id_placar =${transmissao.id_placar}`)
             // await Placar.update({ idjogo: req.query.idjogo }, { where: { id_placar: transmissao.id_placar } });
-
+            
             res.render('transmisao', { transmissao: transmissao, jogo: jogo, merchans: merchans });
         }
     },
     create: async (req, res) => {
-        const rotativo = await Rotativo.create({
-            rotativo_visivilidade: true,
-            rotativo_x: 0,
-            rotativo_y: 0,
-            rotativo_z: 100
-        })
+        try {
+            const novoTransmisao = await Transmissao.create({ nome: req.body.nome });
+            const placar = await Placar.create({
+                idjogo: null,
+                id_transmissao: novoTransmisao.id_transmissao,
+                placar_visibilidade: true,
+                placar_x: 1,
+                placar_y: 1,
+                placar_z: 100
+            })
+            await Cronometro.create({
+                id_placar: placar.id_placar,
+                tipo_cronometro: 0,
+                minuto: 0,
+                segundo: 0,
+                icone: "play",
+                duracao: 0
+            })
+            await Rotativo.create({
+                rotativo_visibilidade: true,
+                rotativo_x: 0,
+                rotativo_y: 0,
+                rotativo_z: 100,
+                id_transmissao: novoTransmisao.id_transmissao
+            })
+            await Overlay.create({
+                overlay_visibilidade: false,
+                fundo:null,
+                id_transmissao: novoTransmisao.id_transmissao
+            })
 
-        const novoTransmisao = await Tranmiscao.create({
-            nome: req.body.nome,
-            id_rotativo: rotativo.id_rotativo
-        });
-        const placar = await Placar.create({
-            idjogo: null,
-            id_transmicao: novoTransmisao.id_transmicao,
-            placar_visivilidade: true,
-            placar_x: 1,
-            placar_y: 1,
-            placar_z: 100
-        })
-
-        await Cronometro.create({
-            id_placar: placar.id_placar,
-            tipo_cronometro: 0,
-            minuto: 1,
-            segundo: 4,
-            icone: "play",
-            duracao: 0
-        })
-        await Overlay.create({ ativo: false, id_transmicao: novoTransmisao.id_transmicao })
+        } catch (error) {
+            console.log("erro ao criar tranmissao ", error)
+        }
         res.redirect('/transmisoes');
     },
     delete: async (req, res) => {
-        await Tranmiscao.destroy({ where: { id_transmicao: req.query.id } });
+        await Transmissao.destroy({ where: { id_transmissao: req.query.id } });
         res.redirect('/transmisoes');
     },
     socket: async (io, socket) => {
@@ -78,15 +84,15 @@ const trasmisaoController = {
             if (menssagem.tipo === "transmissao") {
                 const send = {
                     tipo: "receptor",
-                    transmissao: await trasmisaoController.getTransmisao(menssagem.id_transmicao),
+                    transmissao: await trasmisaoController.getTransmisao(menssagem.id_transmissao),
                     jogo: await trasmisaoController.getJogo(menssagem.idjogo)
                 }
-                io.emit(`transmissao_t${menssagem.id_transmicao}`, send)
+                io.emit(`transmissao_t${menssagem.id_transmissao}`, send)
             } else {
-                io.emit(`transmissao_t${menssagem.id_transmicao}`, menssagem)
+                io.emit(`transmissao_t${menssagem.id_transmissao}`, menssagem)
             }
             console.log(menssagem)
-            socket.on(`transmissao_t${menssagem.id_transmicao}`, async function (menssagem) {
+            socket.on(`transmissao_t${menssagem.id_transmissao}`, async function (menssagem) {
                 console.log(menssagem)
                 switch (menssagem.tipo) {
                     //PLACAR
@@ -144,11 +150,11 @@ const trasmisaoController = {
                     case "overlay_visibilidade":
                         await database.query(`UPDATE Overlay SET overlay_visibilidade= "${menssagem.overlay_visibilidade}" WHERE id_overlay = ${menssagem.id_overlay}`)
                         break
-                        case "fundo":
-                            await database.query(`UPDATE Overlay SET fundo= "${menssagem.fundo}" WHERE id_overlay = ${menssagem.id_overlay}`)
-                            break
+                    case "fundo":
+                        await database.query(`UPDATE Overlay SET fundo= "${menssagem.fundo}" WHERE id_overlay = ${menssagem.id_overlay}`)
+                        break
                 }
-                io.emit(`transmissao_t${menssagem.id_transmicao}`, menssagem)
+                io.emit(`transmissao_t${menssagem.id_transmissao}`, menssagem)
             })
         })
     }

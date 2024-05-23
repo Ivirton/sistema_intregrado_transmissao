@@ -1,15 +1,15 @@
 socket = io();
 
-function enviarMensagemSocket(id_transmicao, entidade, valor_entidade, atributo, valor_atributo) {
+function enviarMensagemSocket(id_transmissao, entidade, valor_entidade, atributo, valor_atributo) {
   const send = {
-    "entidade": "transmicao",
-    "id_transmicao": id_transmicao,
+    "entidade": "transmissao",
+    "id_transmissao": id_transmissao,
     "tipo": atributo,
     [entidade]: valor_entidade,
     [atributo]: valor_atributo
   }
-  send["id_transmicao"] = id_transmicao
-  socket.emit(`transmissao_t${id_transmicao}`, send);
+  send["id_transmissao"] = id_transmissao
+  socket.emit(`transmissao_t${id_transmissao}`, send);
 }
 
 const { createApp } = Vue;
@@ -22,19 +22,19 @@ const appp = createApp({
       },
       transmisao: {
         id_placar: 0,
-        id_transmicao: 0,
+        id_transmissao: 0,
         placar_visibilidade: null,
         placar_x: 0,
         placar_y: 0,
         placar_z: 0,
         idjogo: 0,
-        nome: 'EQUIPE 1',
+        nome: '',
         id_rotativo: 0,
-        rotativo_visivilidade: 0,
+        rotativo_visibilidade: 0,
         rotativo_x: 0,
         rotativo_y: 0,
         rotativo_z: 0,
-        duracao: 45,
+        duracao: 0,
         icone: null,
         id_cronometro: 0,
         minuto: 3,
@@ -69,14 +69,14 @@ const appp = createApp({
   methods: {
     listen() {
       const send = {
-        entidade: "transmicao",
+        entidade: "transmissao",
         tipo: "segundo",
-        id_transmicao: this.transmisao.id_transmicao,
+        id_transmissao: this.transmisao.id_transmissao,
         id_cronometro: this.transmisao.id_cronometro,
         segundo: this.transmisao.segundo
       }
       socket.emit(`transmissao`, send)
-      socket.on(`transmissao_t${this.transmisao.id_transmicao}`, (menssagem) => {
+      socket.on(`transmissao_t${this.transmisao.id_transmissao}`, (menssagem) => {
         console.log(menssagem)
         if (menssagem.tipo === "receptor") {
           this.transmisao = menssagem.transmissao
@@ -87,7 +87,7 @@ const appp = createApp({
           this.jogo = menssagem.jogo
         } else {
           switch (menssagem.entidade) {
-            case "transmicao":
+            case "transmissao":
               this.transmisao[menssagem.tipo] = menssagem[menssagem.tipo]
               if (menssagem.tipo === "icone") {
                 if (menssagem.icone) {
@@ -118,8 +118,8 @@ const appp = createApp({
       this.transmisao.minuto = 0
       this.transmisao.segundo = 0
       this.cronometro.ativo = false;
-      enviarMensagemSocket(this.transmisao.id_transmicao, "id_cronometro", this.transmisao.id_cronometro, "minuto", this.transmisao.minuto)
-      enviarMensagemSocket(this.transmisao.id_transmicao, "id_cronometro", this.transmisao.id_cronometro, "segundo", this.transmisao.segundo)
+      enviarMensagemSocket(this.transmisao.id_transmissao, "id_cronometro", this.transmisao.id_cronometro, "minuto", this.transmisao.minuto)
+      enviarMensagemSocket(this.transmisao.id_transmissao, "id_cronometro", this.transmisao.id_cronometro, "segundo", this.transmisao.segundo)
     },
     play() {
       this.cronometro.interval = setInterval(() => {
@@ -138,18 +138,18 @@ const appp = createApp({
       if (this.transmisao.minuto === this.transmisao.duracao) {
         this.transmisao.minuto = 0
         this.transmisao.segundo = 0
-        enviarMensagemSocket(this.transmisao.id_transmicao, "id_cronometro", this.transmisao.id_cronometro, "minuto", this.transmisao.minuto)
-        enviarMensagemSocket(this.transmisao.id_transmicao, "id_cronometro", this.transmisao.id_cronometro, "segundo", this.transmisao.segundo)
+        enviarMensagemSocket(this.transmisao.id_transmissao, "id_cronometro", this.transmisao.id_cronometro, "minuto", this.transmisao.minuto)
+        enviarMensagemSocket(this.transmisao.id_transmissao, "id_cronometro", this.transmisao.id_cronometro, "segundo", this.transmisao.segundo)
       }
       else {
         if (this.transmisao.segundo === 59) {
           this.transmisao.minuto++;
           this.transmisao.segundo = 0;
-          enviarMensagemSocket(this.transmisao.id_transmicao, "id_cronometro", this.transmisao.id_cronometro, "minuto", this.transmisao.minuto);
+          enviarMensagemSocket(this.transmisao.id_transmissao, "id_cronometro", this.transmisao.id_cronometro, "minuto", this.transmisao.minuto);
         } else {
           this.transmisao.segundo++
         }
-        enviarMensagemSocket(this.transmisao.id_transmicao, "id_cronometro", this.transmisao.id_cronometro, "segundo", this.transmisao.segundo);
+        enviarMensagemSocket(this.transmisao.id_transmissao, "id_cronometro", this.transmisao.id_cronometro, "segundo", this.transmisao.segundo);
       }
     },
     contagemRegressiva() {
@@ -166,11 +166,11 @@ const appp = createApp({
             if (this.transmisao.minuto !== 0) {
               this.transmisao.minuto--;
               this.transmisao.segundo = 59;
-              enviarMensagemSocket(this.transmisao.id_transmicao, "id_cronometro", this.transmisao.id_cronometro, "minuto", this.transmisao.minuto);
+              enviarMensagemSocket(this.transmisao.id_transmissao, "id_cronometro", this.transmisao.id_cronometro, "minuto", this.transmisao.minuto);
             }
           } else {
             this.transmisao.segundo--;
-            enviarMensagemSocket(this.transmisao.id_transmicao, "id_cronometro", this.transmisao.id_cronometro, "segundo", this.transmisao.segundo);
+            enviarMensagemSocket(this.transmisao.id_transmissao, "id_cronometro", this.transmisao.id_cronometro, "segundo", this.transmisao.segundo);
           }
         }
       }

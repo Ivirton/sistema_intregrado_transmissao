@@ -1,6 +1,6 @@
 const database = require("../config/database");
 const moment = require('moment-timezone');
-const {Estadio,Tranmiscao,Jogo,Time} = require("../model/models");
+const {Estadio,Transmissao,Jogo,Time} = require("../model/models");
 
 const jogoController = {
     create: async (req, res) => {
@@ -29,7 +29,7 @@ const jogoController = {
         const estadios = await Estadio.findAll()
         const times = await Time.findAll({order: [['nome', 'ASC']] })
         const jogos = await database.query(query)
-        const transmisoes = await Tranmiscao.findAll()
+        const transmisoes = await Transmissao.findAll()
 
         res.render('jogos', { jogos: jogos[0], times: times, estadios: estadios,transmisoes:transmisoes})
     },
