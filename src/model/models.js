@@ -328,12 +328,12 @@ const Overlay = database.define('Overlay', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    fundo:{
+    fundo: {
         type: DataTypes.STRING,
-        allowNull: true 
+        allowNull: true
     },
     id_transmicao: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: true,
         references: {
             model: 'Transmicao',
@@ -346,4 +346,61 @@ const Overlay = database.define('Overlay', {
     tableName: 'Overlay',
     timestamps: false
 });
-module.exports = { Tranmiscao, Time, Rotativo, Placar, Jogo, Jogador, Estadio, Cronometro, Imagem, Merchan,Overlay }
+const Campeonatos = database.define('Campeonatos', {
+    id_campeonato: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    nome: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    ano: {
+        type: DataTypes.STRING,
+        allowNull: true
+    }
+}, {
+    tableName: 'Campeonatos',
+    timestamps: false
+});
+const Categorias = database.define('Categorias', {
+    id_categorias: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    nome: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    id_campeonato: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+            model: 'Campeonatos',
+            key: 'id_campeonato',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE'
+        }
+    },
+}, {
+    tableName: 'Categorias',
+    timestamps: false
+});
+
+module.exports = {
+    Tranmiscao, Time,
+    Rotativo,
+    Placar,
+    Jogo,
+    Jogador,
+    Estadio,
+    Cronometro,
+    Imagem,
+    Merchan,
+    Overlay,
+    Campeonatos,
+    Categorias
+}
+

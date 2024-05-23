@@ -290,7 +290,11 @@ select {
   transform: scaleX(0);
   transition: all 0.3s ease;
 }
-
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
 .form-group{
   
   display: flex;

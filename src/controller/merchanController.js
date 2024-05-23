@@ -14,38 +14,36 @@ const storage = multer.diskStorage({
 const MerchaController = {
     upload: multer({ storage: storage }),
     create: async (req, res) => {
+        const id_transmicao = req.body.id_transmicao
+        const idjogo = req.body.idjogo
         try {
-            console.log(req.body)
             const novo = await Merchan.create({
-                url:`${req.file.filename}`,
+                url: `${req.file.filename}`,
                 ativo: "false"
             })
-            res.redirect('/carrossel');
+            res.redirect(`/transmisao?id=${id_transmicao}&idjogo=${idjogo}`);
         } catch (erro) {
-            console.log("Erro ao adiconar merchan")
-            res.redirect('/carrossel');
+            res.redirect(`/transmisao?id=${id_transmicao}&idjogo=${idjogo}`);
         }
     },
-    findAll: async (req, res) => {
-       
-
-    },
     delete: async (req, res) => {
+        const id_transmicao = req.query.id_transmicao
+        const idjogo = req.query.idjogo
+        console.log(req.query)
         try {
             const remover = await Merchan.findAll({ where: { id_merchan: req.query.id } })
             let filePath = "public/pictures/merchan/" + remover[0].url
+            await Merchan.destroy({ where: { id_merchan: req.query.id } })
             if (fs.existsSync(filePath)) {
                 fs.unlinkSync(filePath);
-                const remover =  await Merchan.destroy({ where: { id_merchan: req.query.id } })
-                console.log(`File ${filePath} arquivo removido.`);
-            } else {
-                console.log(`File ${filePath} arquivo nao existe.`);
             }
-            res.redirect('/carrossel');
+
         } catch (erro) {
             console.log(erro)
-            res.redirect('/carrossel');
+
         }
+        res.redirect(`/transmisao?id=${id_transmicao}&idjogo=${idjogo}`);
+        // res.redirect('\carroseel')
     }
 
 }

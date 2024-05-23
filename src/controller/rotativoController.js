@@ -40,9 +40,9 @@ const rotativoControler = {
         try {
             const remover = await Imagem.findAll({ where: { id_imagem: req.query.id } })
             let filePath = "public/pictures/carrossel/" + remover[0].url
+            await Imagem.destroy({ where: { id_imagem: req.query.id } })
             if (fs.existsSync(filePath)) {
                 fs.unlinkSync(filePath);
-                const remover =  await Imagem.destroy({ where: { id_imagem: req.query.id } })
                 console.log(`File ${filePath} arquivo removido.`);
             } else {
                 console.log(`File ${filePath} arquivo nao existe.`);

@@ -1,4 +1,6 @@
-const { Estadio, Tranmiscao, Rotativo, Placar, Jogo, Cronometro, Imagem, Time, Jogador, Overlay, Merchan } = require("./models");
+const { Estadio, Tranmiscao, Rotativo, Placar, Jogo, Cronometro, Imagem, Time, Jogador, Overlay, Merchan, Campeonatos,
+    Categorias,
+    Campeonato_Categorias } = require("./models");
 Imagem.sync()
     .then(() => {
         console.log('Tabela IMAGEM sincronizada com sucesso.');
@@ -33,7 +35,9 @@ Jogo.sync()
         console.error('Erro ao sincronizar a tabela:', error);
     });
 Jogador.sync()
-    .then(() => { console.log('Tabela Jogador sincronizada com sucesso.'); })
+    .then(() => {
+        console.log('Tabela Jogador sincronizada com sucesso.');
+    })
     .catch(error => {
         console.error('Erro ao sincronizar a tabela:', error);
     });
@@ -65,4 +69,10 @@ Merchan.sync()
     .catch(error => {
         console.error('Erro ao sincronizar a tabela:', error);
     });
-
+Campeonatos.sync()
+    .then(() => {
+        console.log('Tabela Campeonatos sincronizada com sucesso.');
+    })
+    .catch(error => {
+        console.error('Erro ao sincronizar a tabela:', error);
+    });
