@@ -9,7 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  <link rel="icon" href="/pictures/sistem/logo_podium.png" type="image/png">
+    <link rel="icon" href="/pictures/sistem/logo_podium.png" type="image/png">
 
     <link rel="stylesheet" href="receptor/style.css">
 </head>
@@ -22,8 +22,9 @@
                 <strong>{{jogo.partida}}t</strong>
                 <div class="cronometro">
                     <strong>{{ transmisao.minuto < 10 ? '0' + transmisao.minuto : transmisao.minuto }}</strong>
-                    <strong>:</strong>
-                    <strong>{{ transmisao.segundo < 10 ? '0' + transmisao.segundo : transmisao.segundo }}</strong>
+                            <strong>:</strong>
+                            <strong>{{ transmisao.segundo < 10 ? '0' + transmisao.segundo : transmisao.segundo
+                                    }}</strong>
                 </div>
                 |
                 <strong class="name">{{jogo.nome_time1}}</strong>
@@ -34,13 +35,23 @@
             </section>
             <section class="rotativo " v-show="transmisao.rotativo_visibilidade"
                 :style="{ left: transmisao.rotativo_x + 'vw', top: transmisao.rotativo_y + 'vh',zoom: transmisao.rotativo_z + '%'}">
-                    <img class="rotativo_img" :key="carrosel.imagemAtual"  v-bind:src="carrosel.imagemAtual"  >
+                <img class="rotativo_img" :key="carrosel.imagemAtual" v-bind:src="carrosel.imagemAtual">
             </section>
+
         </main>
         <section v-show="transmisao.overlay_visibilidade" class="merchan">
-            <!-- <img class="carrosel" src="/pictures/merchan/solar.png"> -->
             <img class="carrosel" v-bind:src="transmisao.fundo">
         </section>
+        <section class="rotativo " v-show="transmisao.rotativo_visibilidade"
+            :style="{ left: transmisao.rotativo_x + 'vw', top: transmisao.rotativo_y + 'vh',zoom: transmisao.rotativo_z + '%'}">
+            <img class="rotativo_img" :key="carrosel.imagemAtual" v-bind:src="carrosel.imagemAtual">
+        </section>
+        <section v-if="jogo.idjogo">
+        </section>
+        <section v-else="jogo.idjogo" class="merchan">
+            <img class="carrosel" src="/pictures/sistem/aguardando.jpg">
+        </section>
+
     </div>
 </body>
 <script>
@@ -51,7 +62,7 @@
         // appp.atualizarCarrosel()
         await appp.proximo()
         await appp.carrosel_play()
-        
+
     })
 
 </script>

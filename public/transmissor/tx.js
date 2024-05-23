@@ -167,6 +167,7 @@ const appp = createApp({
       enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_cronometro", this.transmisao.id_cronometro, "icone", this.transmisao.icone)
     },
     overlay_visibilidade_tx() {
+      
       this.transmisao.placar_visibilidade = !this.transmisao.overlay_visibilidade
       this.placar_visibilidade_tx()
       this.transmisao.rotativo_visibilidade = !this.transmisao.overlay_visibilidade
