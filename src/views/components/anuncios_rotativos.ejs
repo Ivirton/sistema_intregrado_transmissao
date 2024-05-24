@@ -24,19 +24,19 @@
                         <small>Largura</small>
                         <div class="PB-range-slider-div">
                             <input type="range" min="0" max="100" v-model="transmisao.rotativo_x"
-                                class="PB-range-slider"  v-on:change="rotativo_x_tx">
+                                class="PB-range-slider"  v-on:input="rotativo_x_tx">
                             <small class="PB-range-slidervalue">{{transmisao.rotativo_x}}%</small>
                         </div>
                         <small>Altura</small>
                         <div class="PB-range-slider-div">
                             <input type="range" min="0" max="150" v-model="transmisao.rotativo_y"
-                                class="PB-range-slider" v-on:change="rotativo_y_tx">
+                                class="PB-range-slider" v-on:input="rotativo_y_tx">
                             <small class="PB-range-slidervalue">{{transmisao.rotativo_y}}%</small>
                         </div>
                         <small>Tamanho</small>
                         <div class="PB-range-slider-div">
                             <input type="range" min="0" max="100" v-model="transmisao.rotativo_z"
-                                class="PB-range-slider" v-on:change="rotativo_z_tx">
+                                class="PB-range-slider" v-on:input="rotativo_z_tx">
                             <small class="PB-range-slidervalue">{{transmisao.rotativo_z}}%</small>
                         </div>
                     </div>

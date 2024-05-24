@@ -27,7 +27,7 @@ const MerchaController = {
         }
     },
     delete: async (req, res) => {
-        const id_transmicao = req.query.id_transmicao
+        const id_transmissao = req.query.id_transmissao
         const idjogo = req.query.idjogo
         console.log(req.query)
         try {
@@ -37,13 +37,10 @@ const MerchaController = {
             if (fs.existsSync(filePath)) {
                 fs.unlinkSync(filePath);
             }
-
         } catch (erro) {
-            console.log(erro)
-
+            console.log("erro ao deletar"+erro)
         }
-        res.redirect(`/transmisao?id=${id_transmicao}&idjogo=${idjogo}`);
-        // res.redirect('\carroseel')
+        res.redirect(`/transmisao?id=${id_transmissao}&idjogo=${idjogo}`);
     }
 
 }
