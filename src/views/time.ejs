@@ -9,11 +9,12 @@
   </title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="icon" href="/pictures/sistem/logo_podium.png" type="image/png">
+  <link rel="icon" href="/pictures/sistem/logo_podium.png" type="image/png">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="../style.css">
 </head>
+
 <body>
   <%- include('./components/header.ejs')%>
     <main>
@@ -38,14 +39,12 @@
                 <input type="text" class="form-control" name="categoriaTime" value="<%= time.categoria%>"
                   placeholder="">
               </div>
-
               <div class="form-group">
-                <label for="">Estado</label>
-                <input type="text" class="form-control" name="estadoTime" value="<%= time.estado%>" placeholder="">
-              </div>
-              <div class="form-group">
-                <label for="">Cidade</label>
-                <input type="text" class="form-control" name="cidadeTime" value="<%= time.cidade%>" placeholder="">
+                <label for="">Sexo</label>
+                <select name="sexoTime" class="form-control" value="<%= time.sexo%>">
+                  <option value="0">Masculino</option>
+                  <option value="1">Feminino</option>
+                </select>
               </div>
               <input type="number" name="id" value="<%= time.id_equipe%>" style="display: none;">
               <div class="linha" style="justify-content: end;">
@@ -98,7 +97,7 @@
         <section class="section card1">
           <div class="linha">
             <h3 class="mb-4">Jogos</h3>
-            
+
           </div>
         </section>
       </article>
@@ -112,4 +111,5 @@
       integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
       crossorigin="anonymous"></script>
 </body>
+
 </html>

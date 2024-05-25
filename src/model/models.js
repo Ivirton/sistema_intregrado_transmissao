@@ -251,15 +251,10 @@ const Time = database.define('Times', {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    estado: {
+    sexo: {
         type: DataTypes.STRING,
-    },
-    cidade: {
-        type: DataTypes.STRING,
-    },
-    esculdo: {
-        type: DataTypes.STRING,
-    },
+        allowNull: true,
+    }
 });
 const Transmissao = database.define('Transmissao', {
     id_transmissao: {

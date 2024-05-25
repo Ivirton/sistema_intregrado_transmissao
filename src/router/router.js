@@ -24,7 +24,7 @@ router.get('/time', timeController.find);
 router.get('/deletetime', timeController.delete);
 router.post('/updatetime',timeController.update);
 
-//ESTÁDIO
+//locais
 router.post('/create_estadio',estadioController.create);
 router.get('/estadios', estadioController.findAll);
 router.get('/delete_estadio',estadioController.delete);

@@ -13,18 +13,16 @@ const timeController = {
     },
     findAll: async (req, res) => {
         res.render('times', {
-            times: await Time.findAll({order: [['nome', 'ASC']] })
+            times: await Time.findAll({ order: [['nome', 'ASC']] })
         })
     },
     create: async (req, res) => {
         try {
-            const { nomeTime, estadoTime, cidadeTime, esculdoTime, id, categoriaTime } = req.body;
+            const { nomeTime, sexoTime, categoriaTime } = req.body;
             const novoTime = await Time.create({
                 nome: nomeTime,
                 categoria: categoriaTime,
-                estado: estadoTime,
-                cidade: cidadeTime,
-                esculdo: null
+                sexo: sexoTime
             })
             console.log('Time adicionado :', novoTime.toJSON());
         } catch (erro) {
@@ -43,14 +41,12 @@ const timeController = {
     },
     update: async (req, res) => {
         try {
-            const { nomeTime, estadoTime, cidadeTime, esculdoTime, id, categoriaTime } = req.body;
+            const { nomeTime, id,sexoTime, categoriaTime } = req.body;
             const result = await Time.update(
                 {
                     nome: nomeTime,
-                    estado: estadoTime,
-                    cidade: cidadeTime,
-                    esculdo: esculdoTime,
-                    categoria: categoriaTime
+                    categoria: categoriaTime,
+                    sexo:sexoTime
                 },
                 {
                     where: {
@@ -58,12 +54,9 @@ const timeController = {
                     }
                 }
             );
-
             if (result[0] === 1) {
-
                 console.log("Time atualizado com sucesso");
                 res.redirect("/time?id=" + id);
-
             } else {
                 console.log("Time não encontrado ou não atualizado.");
                 res.redirect("/time?id=" + id);
