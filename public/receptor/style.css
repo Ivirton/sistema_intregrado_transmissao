@@ -32,7 +32,7 @@
     text-align: center;
     z-index: 999;
     border: 1px solid #dedfdc1f;
-    transition: 500ms ease-in-out;
+    
     overflow: hidden;
     backdrop-filter: blur(25px);
 

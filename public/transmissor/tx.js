@@ -77,7 +77,7 @@ const appp = createApp({
           this.transmisao.overlay_visibilidade = menssagem.transmissao.overlay_visibilidade === "true" ? true : false
           this.transmisao.icone = menssagem.transmissao.icone === "true" ? true : false
           this.jogo = menssagem.jogo
-        } else {
+        } else if(socket.id != menssagem.id_socket){ 
           switch (menssagem.entidade) {
             case "transmissao":
               this.transmisao[menssagem.tipo] = menssagem[menssagem.tipo]
