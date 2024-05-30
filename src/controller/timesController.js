@@ -6,23 +6,32 @@ const timeController = {
         try {
             const time = await Time.findByPk(req.query.id)
             const jogadores = await Jogador.findAll({ where: { id_equipe: req.query.id } })
-            res.render('time', { time: time, jogadores: jogadores,categorias: await Categoria.findAll({order: [['nome', 'ASC']] }) })
+            res.render('time', { time: time, jogadores: jogadores, categorias: await Categoria.findAll({ order: [['nome', 'ASC']] }) })
         } catch (error) {
             console.log(error)
         }
 
     },
-    findAll: async (req, res) => {
-        const times = await database.query("select Times.id_equipe, Times.nome as nomeTime, Categoria.nome as nomeCategoria,Categoria.id_categoria ,Categoria.sexo  from Times,Categoria where Times.id_categoria = Categoria.id_categoria ORDER BY nomeTime ASC")
-        
+    findCategoria: async (req, res) => {
+
+        const times = await database.query(`select Times.id_equipe, Times.nome as nomeTime, Categoria.nome as nomeCategoria,Categoria.id_categoria ,Categoria.sexo  from Times,Categoria where Times.id_categoria = Categoria.id_categoria and Categoria.id_categoria = ${req.params.timeCategoria} ORDER BY nomeTime ASC`)
+
         res.render('times', {
             times: times[0],
-            categorias: await Categoria.findAll({order: [['nome', 'ASC']] })
+            categorias: await Categoria.findAll({ order: [['nome', 'ASC']] })
+        })
+    },
+    findAll: async (req, res) => {
+        const times = await database.query("select Times.id_equipe, Times.nome as nomeTime, Categoria.nome as nomeCategoria,Categoria.id_categoria ,Categoria.sexo  from Times,Categoria where Times.id_categoria = Categoria.id_categoria ORDER BY nomeTime ASC")
+
+        res.render('times', {
+            times: times[0],
+            categorias: await Categoria.findAll({ order: [['nome', 'ASC']] })
         })
     },
     create: async (req, res) => {
         try {
-            const { nomeTime,id_categoria } = req.body;
+            const { nomeTime, id_categoria } = req.body;
             const novoTime = await Time.create({
                 nome: nomeTime.toLocaleUpperCase(),
                 id_categoria: id_categoria

@@ -20,7 +20,7 @@
                   <option value="" selected="selected" disabled="disabled"></option>
                     <% times.forEach(time=> { %>
                         <option value="<%= time.id_equipe %>">
-                          <%= time.nomeTime %> - <%= time.nomeCategoria %>  <%= time.sexo === 0 ? 'MASCULINO' : 'FEMININO' %>
+                          <%= time.nomeTime %> - <%= time.nomeCategoria %>  <%= time.sexo === 0 ? 'MASCU' : 'FEMI' %>
                         </option>
                     <% }) %>
               </select>
@@ -32,7 +32,7 @@
                     <option value="" selected="selected" disabled="disabled"></option>
                     <% times.forEach(time=> { %>
                         <option value="<%= time.id_equipe %>">
-                          <%= time.nomeTime %> - <%= time.nomeCategoria %> -  <%= time.sexo === 0 ? 'MASCULINO' : 'FEMININO' %>
+                          <%= time.nomeTime %> - <%= time.nomeCategoria %> -  <%= time.sexo === 0 ? 'MASCU' : 'FEMIN' %>
                         </option>
                     <%})%>
                 </select>

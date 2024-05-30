@@ -52,7 +52,7 @@
                       <%= categoria.nome %>
                     </td>
                     <td onclick="window.location='/jogos/<%= categoria.id_categoria %>';">
-                      <%= categoria.sexo === 0 ? 'MASCULINO' : 'FEMININO' %>
+                      <%= categoria.sexo === 0 ? 'MASC' : 'FEMIN' %>
                     </td>
                     <td>
                       <a href="/delete_categoria?id=<%= categoria.id_categoria %>"><i class="fa fa-trash-alt"></i></a>

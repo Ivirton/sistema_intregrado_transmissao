@@ -20,6 +20,7 @@ router.get('/deletetransmisao', trasmisaoController.delete);
 
 //TIME
 router.get('/times',timeController.findAll);
+router.get('/times/:timeCategoria',timeController.findCategoria);
 router.post('/create_time',timeController.create);
 router.get('/time', timeController.find);
 router.get('/deletetime', timeController.delete);

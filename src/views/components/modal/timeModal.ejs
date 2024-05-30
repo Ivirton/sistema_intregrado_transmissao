@@ -17,6 +17,7 @@
                         <label for="">Cateroria</label>
                         <select class="form-control" name="id_categoria" required>
                             <option value="" selected="selected" disabled="disabled">Categorias</option>
+                            
                             <% categorias.forEach(categoria=> { %>
                                 <option value="<%= categoria.id_categoria %>">
                                     <%= categoria.nome %> - <% if (categoria.sexo===0) { %>

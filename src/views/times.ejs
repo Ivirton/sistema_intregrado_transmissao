@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,32 +9,35 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="../style.css">
   <link rel="icon" href="/pictures/sistem/logo_podium.png" type="image/png">
-
-
 </head>
-
 <body>
   <%- include('./components/header.ejs',{href:"times",titulo:"Times"})%>
     <%- include('./components/modal/timeModal.ejs')%>
       <main>
-
         <article class="body">
           <section class="section card1">
             <div class="linha">
               <h4 class="mb-4">Times</h4>
-             
             </div>
             <div class="linha">
               <div class="form-group">
-                <select class="form-control" name="time1_jogo" id="time1" required>
+                <select class="form-control" id="timeCategoria">
                   <option value="" selected="selected" disabled="disabled">Categorias</option>
-                  <option value="44">
-                    Fadad
-                  </option>
+                  <option value="times" >Todos</option>
+
+                  <% categorias.forEach(categoria=> { %>
+                    <option value="<%= categoria.id_categoria %>">
+                      <%= categoria.nome %> - <% if (categoria.sexo===0) { %>
+                          MASCULINO
+                          <% } else if (categoria.sexo===1) { %>
+                            FEMININO
+                            <% } %>
+                    </option>
+                    <% }) %>
                 </select>
               </div>
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-              data-bs-whatever="@mdo">Novo</button>
+                data-bs-whatever="@mdo">Novo</button>
             </div>
             <table class="table table-striped">
               <thead class="thead-dark">
@@ -82,7 +84,16 @@
       </main>
 
 
-      <!-- Adicionando o JavaScript do Bootstrap -->
+      <script>
+        const timeCategoria = document.getElementById('timeCategoria')
+        timeCategoria.addEventListener('change', () => {
+          if(timeCategoria.value === "times"){
+            window.location = "/times"
+          }else{
+            window.location = "/times/"+timeCategoria.value
+          }
+        })
+      </script>
       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
