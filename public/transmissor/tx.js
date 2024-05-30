@@ -172,10 +172,10 @@ const appp = createApp({
     },
     overlay_visibilidade_tx() {
       
-      this.transmisao.placar_visibilidade = !this.transmisao.overlay_visibilidade
-      this.placar_visibilidade_tx()
-      this.transmisao.rotativo_visibilidade = !this.transmisao.overlay_visibilidade
-      this.rotativo_visibilidade_tx()
+      // this.transmisao.placar_visibilidade = !this.transmisao.overlay_visibilidade
+      // this.placar_visibilidade_tx()
+      // this.transmisao.rotativo_visibilidade = !this.transmisao.overlay_visibilidade
+      // this.rotativo_visibilidade_tx()
       enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_overlay", this.transmisao.id_overlay, "overlay_visibilidade", this.transmisao.overlay_visibilidade)
     },
     overlay_imagem_tx(fundo) {
