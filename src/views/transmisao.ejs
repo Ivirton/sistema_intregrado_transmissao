@@ -17,7 +17,7 @@
 
 <body>
 
-  <%- include('./components/header.ejs')%>
+  <%- include('./components/header.ejs',{href:"jogos",titulo:"Transmissões"})%>
     <div id="app">
       <!-- latetal esqueda -->
       <article class="body">
@@ -26,8 +26,8 @@
       <!-- lateral direita -->
       <article class="aside">
         <%- include('./components/anuncios_rotativos.ejs')%>
-        <%- include('./components/merchan.ejs')%>
-        <%- include('./components/merchanlModel.ejs')%>
+          <%- include('./components/merchan.ejs')%>
+            <%- include('./components/merchanlModel.ejs')%>
       </article>
     </div>
     <script src="/socket.io/socket.io.js"></script>
@@ -38,6 +38,8 @@
         appp.transmisao.id_placar = "<%= transmissao.id_placar %>"
         appp.jogo.idjogo = "<%= jogo.idjogo %>"
         const send = {
+          id_socket: socket.id,
+          cliente: 'tx',
           tipo: "transmissao",
           id_transmissao: "<%= transmissao.id_transmissao %>",
           idjogo: "<%= jogo.idjogo %>"

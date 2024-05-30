@@ -1,28 +1,31 @@
-const { Time, Jogador } = require("../model/models");
+const database = require("../config/database");
+const { Time, Jogador, Categoria } = require("../model/models");
 
 const timeController = {
     find: async (req, res) => {
         try {
             const time = await Time.findByPk(req.query.id)
             const jogadores = await Jogador.findAll({ where: { id_equipe: req.query.id } })
-            res.render('time', { time: time, jogadores: jogadores })
+            res.render('time', { time: time, jogadores: jogadores,categorias: await Categoria.findAll({order: [['nome', 'ASC']] }) })
         } catch (error) {
             console.log(error)
         }
 
     },
     findAll: async (req, res) => {
+        const times = await database.query("select Times.id_equipe, Times.nome as nomeTime, Categoria.nome as nomeCategoria,Categoria.id_categoria ,Categoria.sexo  from Times,Categoria where Times.id_categoria = Categoria.id_categoria ORDER BY nomeTime ASC")
+        
         res.render('times', {
-            times: await Time.findAll({ order: [['nome', 'ASC']] })
+            times: times[0],
+            categorias: await Categoria.findAll({order: [['nome', 'ASC']] })
         })
     },
     create: async (req, res) => {
         try {
-            const { nomeTime, sexoTime, categoriaTime } = req.body;
+            const { nomeTime,id_categoria } = req.body;
             const novoTime = await Time.create({
-                nome: nomeTime,
-                categoria: categoriaTime,
-                sexo: sexoTime
+                nome: nomeTime.toLocaleUpperCase(),
+                id_categoria: id_categoria
             })
             console.log('Time adicionado :', novoTime.toJSON());
         } catch (erro) {
@@ -41,12 +44,11 @@ const timeController = {
     },
     update: async (req, res) => {
         try {
-            const { nomeTime, id,sexoTime, categoriaTime } = req.body;
+            const { nomeTime, id, id_categoria } = req.body;
             const result = await Time.update(
                 {
                     nome: nomeTime,
-                    categoria: categoriaTime,
-                    sexo:sexoTime
+                    id_categoria: id_categoria
                 },
                 {
                     where: {

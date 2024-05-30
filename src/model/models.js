@@ -150,9 +150,38 @@ const Jogo = database.define('Jogo', {
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE'
         }
+    },
+    id_categoria: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+            model: 'Categoria',
+            key: 'id_categoria',
+            onDelete: 'SET NULL',
+            onUpdate: 'SET NULL'
+        }
     }
 }, {
     tableName: 'Jogo',
+    timestamps: false
+});
+const Categoria = database.define('Categoria', {
+    id_categoria: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    sexo:{
+        type:DataTypes.INTEGER,
+        allowNull: true,
+    },
+    nome:{
+        type:DataTypes.STRING,
+        allowNull: true,
+    }
+}, {
+    tableName: 'Categoria',
     timestamps: false
 });
 const Placar = database.define('Placar', {
@@ -247,13 +276,15 @@ const Time = database.define('Times', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    categoria: {
-        type: DataTypes.STRING,
+    id_categoria: {
+        type: DataTypes.INTEGER,
         allowNull: true,
-    },
-    sexo: {
-        type: DataTypes.STRING,
-        allowNull: true,
+        references: {
+            model: 'Categoria',
+            key: 'id_categoria',
+            onDelete: 'SET NULL',
+            onUpdate: 'SET NULL'
+        }
     }
 });
 const Transmissao = database.define('Transmissao', {
@@ -351,5 +382,6 @@ module.exports = {
     Cronometro,
     Imagem,
     Merchan,
-    Overlay
+    Overlay,
+    Categoria
 }

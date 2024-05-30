@@ -15,13 +15,17 @@
                     </div>
                     <div class="form-group">
                         <label for="">Cateroria</label>
-                        <input type="text" class="form-control" name="categoriaTime" placeholder="">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Sexo</label>
-                        <select name="sexoTime" class="form-control" >
-                            <option value="0">Masculino</option>
-                            <option value="1">Feminino</option>
+                        <select class="form-control" name="id_categoria" required>
+                            <option value="" selected="selected" disabled="disabled">Categorias</option>
+                            <% categorias.forEach(categoria=> { %>
+                                <option value="<%= categoria.id_categoria %>">
+                                    <%= categoria.nome %> - <% if (categoria.sexo===0) { %>
+                                        MASCULINO
+                                        <% } else if (categoria.sexo===1) { %>
+                                        FEMININO
+                                        <% } %>
+                                </option>
+                                <% }) %>
                         </select>
                     </div>
                     <div class="modal-footer">

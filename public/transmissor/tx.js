@@ -2,6 +2,8 @@ socket = io();
 const { createApp } = Vue
 function enviarTransmissaoSocket(id_transmissao, entidade, valor_entidade, atributo, valor_atributo) {
   const send = {
+    cliente:'tx',
+    id_socket:socket.id,
     "entidade": "transmissao",
     "id_transmissao": id_transmissao,
     "tipo": atributo,
@@ -13,6 +15,8 @@ function enviarTransmissaoSocket(id_transmissao, entidade, valor_entidade, atrib
 }
 function enviarJogoSocket(id_transmissao, entidade, valor_entidade, atributo, valor_atributo) {
   const send = {
+    id_socket:socket.id,
+    cliente:'tx',
     "entidade": "jogo",
     "id_transmissao": id_transmissao,
     "tipo": atributo,

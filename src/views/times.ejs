@@ -15,14 +15,14 @@
 </head>
 
 <body>
-  <%- include('./components/header.ejs')%>
+  <%- include('./components/header.ejs',{href:"times",titulo:"Times"})%>
     <%- include('./components/modal/timeModal.ejs')%>
       <main>
 
         <article class="body">
           <section class="section card1">
             <div class="linha">
-              <h2 class="mb-4">Times</h2>
+              <h4 class="mb-4">Times</h4>
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
                 data-bs-whatever="@mdo">Novo</button>
             </div>
@@ -30,8 +30,8 @@
               <thead class="thead-dark">
                 <tr>
                   <th>nome</th>
-                  <th>sexo</th>
                   <th>categoria</th>
+                  <th>sexo</th>
                   <th></th>
                 </tr>
               </thead>
@@ -40,20 +40,21 @@
                 <% times.forEach(time=> { %>
                   <tr style="cursor:pointer;">
                     <td onclick="window.location='/time?id=<%= time.id_equipe %>';">
-                      <%= time.nome %>
+                      <%= time.nomeTime %>
+                    </td>
+                    <td onclick="window.location='/time?id=<%= time.id_equipe %>';">
+                      <%= time.nomeCategoria %>
                     </td>
                     <td onclick="window.location='/time?id=<%= time.id_equipe %>';">
                       <% if (time.sexo===0) { %>
-                        Masculino
+                        MASCULINO
                         <% } else if (time.sexo===1) { %>
-                          Feminino
+                          FEMININO
                           <% } %>
                     </td>
-                    <td onclick="window.location='/time?id=<%= time.id_equipe %>';">
-                      <%= time.categoria %>
-                    </td>
+                   
                     <td>
-                      <a href="/deletetime?id=<%= time.id_equipe %>"><i class="fas fa-trash-alt"></i></a>
+                      <a href="/deletetime?id=<%= time.id_equipe %>"><i class="fa fa-trash-alt"></i></a>
                     </td>
                   </tr>
                   <% }) %>

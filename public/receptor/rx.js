@@ -2,6 +2,8 @@ socket = io();
 
 function enviarMensagemSocket(id_transmissao, entidade, valor_entidade, atributo, valor_atributo) {
   const send = {
+    id_socket: socket.id,
+    cliente:'rx',
     "entidade": "transmissao",
     "id_transmissao": id_transmissao,
     "tipo": atributo,
@@ -59,12 +61,7 @@ const appp = createApp({
       }
     }
   },
-  mounted(){
- 
-   
-    // this.carrosel_play();
-    // this.listen();
-    
+  mounted() {
   },
   methods: {
     listen() {
@@ -205,7 +202,7 @@ const appp = createApp({
         const proximaImagem = this.carrosel.value[this.carrosel.indice];
         this.carrosel.imagemAtual = `/pictures/carrossel/${proximaImagem.url}`;
         this.carrosel.duracao = proximaImagem.duracao;
-      }else{
+      } else {
         this.carrosel.imagemAtual = ""
       }
     },

@@ -8,6 +8,7 @@ const estadioController = require('../controller/estadioController');
 const jogoController = require('../controller/jogosController');
 const rotativoControler = require('../controller/rotativoController');
 const MerchaController = require('../controller/merchanController');
+const categoriaController = require('../controller/categoriaController');
 
 //TRANSMISSÃO
 router.get('/', trasmisaoController.transmisoes);
@@ -29,6 +30,12 @@ router.post('/create_estadio',estadioController.create);
 router.get('/estadios', estadioController.findAll);
 router.get('/delete_estadio',estadioController.delete);
 
+//categorias
+
+router.post('/create_categoria',categoriaController.create);
+router.get('/categoria', categoriaController.findAll);
+router.get('/delete_categoria',categoriaController.delete);
+
 //JOGADOR
 router.post('/create_jogador',jogadorController.create);
 router.post('/update_jogador',jogadorController.update);
@@ -36,7 +43,8 @@ router.get('/jogador', jogadorController.find);
 router.get('/delete_jogador',jogadorController.delete);
 
 // JOGOS
-router.get('/jogos',jogoController.findAll);
+// router.get('/jogos',jogoController.findAll);
+router.get('/jogos/:categoria',jogoController.findCategoria);
 router.post('/create_jogo',jogoController.create);
 router.get('/deletejogo',jogoController.delete);
 

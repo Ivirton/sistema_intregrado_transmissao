@@ -20,7 +20,7 @@
                   <option value="" selected="selected" disabled="disabled"></option>
                     <% times.forEach(time=> { %>
                         <option value="<%= time.id_equipe %>">
-                            <%= time.nome %> <p> - </p> <small><%= time.categoria %></small>
+                          <%= time.nomeTime %> - <%= time.nomeCategoria %>  <%= time.sexo === 0 ? 'MASCULINO' : 'FEMININO' %>
                         </option>
                     <% }) %>
               </select>
@@ -32,7 +32,7 @@
                     <option value="" selected="selected" disabled="disabled"></option>
                     <% times.forEach(time=> { %>
                         <option value="<%= time.id_equipe %>">
-                          <%= time.nome %> <p> - </p> <small><%= time.categoria %></small>
+                          <%= time.nomeTime %> - <%= time.nomeCategoria %> -  <%= time.sexo === 0 ? 'MASCULINO' : 'FEMININO' %>
                         </option>
                     <%})%>
                 </select>
@@ -48,6 +48,7 @@
                     <%})%>
                 </select>
             </div>
+            <input type="number" name="id_categoria" style="display: none;" value="<%= id_categoria %>">
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
               <button type="submit" class="btn btn-primary">Salvar</button>

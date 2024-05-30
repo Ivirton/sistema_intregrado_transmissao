@@ -16,16 +16,16 @@
 </head>
 
 <body>
-  <%- include('./components/header.ejs')%>
+  <%- include('./components/header.ejs',{href:"times",titulo:"Times"})%>
     <main>
       <!-- latetal esqueda -->
       <article class="body">
 
         <section class="section card1">
           <div class="linha">
-            <h3>
+            <h4>
               <%= time.nome%>
-            </h3>
+            </h4>
           </div>
 
           <div style="padding: 10px;" class="form">
@@ -36,16 +36,21 @@
               </div>
               <div class="form-group">
                 <label for="">Cateroria</label>
-                <input type="text" class="form-control" name="categoriaTime" value="<%= time.categoria%>"
-                  placeholder="">
-              </div>
-              <div class="form-group">
-                <label for="">Sexo</label>
-                <select name="sexoTime" class="form-control" value="<%= time.sexo%>">
-                  <option value="0">Masculino</option>
-                  <option value="1">Feminino</option>
-                </select>
-              </div>
+                <select class="form-control" name="id_categoria" required>
+                  <% categorias.forEach(categoria => { %>
+                      <option 
+                          <% if (categoria.id_categoria === time.id_categoria) { %> selected="selected" <% } %>
+                          value="<%= categoria.id_categoria %>">
+                          <%= categoria.nome %> - 
+                          <% if (categoria.sexo === 0) { %>
+                              MASCULINO
+                          <% } else if (categoria.sexo === 1) { %>
+                              FEMININO
+                          <% } %>
+                      </option>
+                  <% }) %>
+              </select>
+            </div>
               <input type="number" name="id" value="<%= time.id_equipe%>" style="display: none;">
               <div class="linha" style="justify-content: end;">
                 <button class="btn btn-primary " type="submit">Salvar</button>
@@ -86,7 +91,7 @@
                     </td>
                     <td>
                       <a href="/delete_jogador?jogador=<%= jogador.id_jogador %>&time=<%= time.id_equipe%>"><i
-                          class="fas fa-trash-alt"></i></a>
+                          class="fa fa-trash-alt"></i></a>
                     </td>
                   </tr>
                   <% }) %>

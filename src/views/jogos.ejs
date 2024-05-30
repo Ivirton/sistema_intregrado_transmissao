@@ -11,58 +11,111 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="../style.css">
 </head>
+
 <body>
-    <%- include('./components/header.ejs')%>
+    <%- include('./components/header.ejs',{href:"categoria",titulo:"Jogos"})%>
         <div id="app">
             <article class="body">
                 <%- include('./components/modal/jogoModal.ejs')%>
-                    <section class="section card1">
-                        <div class="linha">
-                            <h3>Jogos</h3>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal" data-bs-whatever="@mdo">Novo</button>
-                        </div>
-                        <div style="display: flex; flex-wrap: wrap;  justify-content: space-evenly;">
-                            <% jogos.forEach(jogo=> { %>
-                                <div class="card bg-light mb-3" style="max-width: 18rem;">
-                                    <div class="card-header">
-                                        <div class="linha">
-                                            <div class="dropdown">
-                                                <button class="btn btn dropdown-toggle" type="button"
-                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Transmissão
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <% transmisoes.forEach(transmisao=> { %>
-                                                        <li>
-                                                            <a class="dropdown-item"
-                                                                href="/transmisao?id=<%= transmisao.id_transmissao%>&idjogo= <%= jogo.idjogo %> ">
-                                                                <%= transmisao.nome %>
-                                                            </a>
-                                                        </li>
-                                                        <% })%>
-                                                </ul>
+
+                    <section class="">
+
+                        <div class="coluna">
+
+                            <section style="width: 73%;margin-left: auto;margin-right: auto;margin-bottom: 12px;">
+                                <div class="linha"
+                                    style="justify-content: space-around;color: white;margin-left: auto;margin-right: auto;">
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            Categoria
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                            </li>
+                                            <% categorias.forEach(categoria=> { %>
+                                                <li>
+                                                    <a class="dropdown-item" href="/jogos/<%= categoria.id_categoria%>">
+                                                        <%= categoria.nome %> -
+                                                            <% if (categoria.sexo===0) { %>
+                                                                MASCULINO
+                                                                <% } else if (categoria.sexo===1) { %>
+                                                                    FEMININO
+                                                                    <% } %>
+                                                    </a>
+                                                </li>
+                                                <% })%>
+                                        </ul>
+                                    </div>
+                                    <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal" data-bs-whatever="@mdo">Novo</button>
+                                </div>
+
+                            </section>
+
+
+                            <div style="display: flex; flex-wrap: wrap;  justify-content: space-evenly;">
+
+                                <% jogos.forEach(jogo=> { %>
+                                    <div class="card bg-light mb-3" style="max-width: 25rem;">
+                                        <div class="card-header">
+                                            <div class="linha">
+                                                <div class="dropdown">
+                                                    <button class="btn btn dropdown-toggle" type="button"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Transmissão
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <% transmisoes.forEach(transmisao=> { %>
+                                                            <li>
+                                                                <a class="dropdown-item"
+                                                                    href="/transmisao?id=<%= transmisao.id_transmissao%>&idjogo= <%= jogo.idjogo %> ">
+                                                                    <%= transmisao.nome %>
+                                                                </a>
+                                                            </li>
+                                                            <% })%>
+                                                    </ul>
+                                                </div>
+                                                <a href="/deletejogo?id=<%= jogo.idjogo  %>"><i class="fa fa-times"
+                                                        aria-hidden="true"></i></a>
                                             </div>
-                                            <a class="btn btn-link"
-                                                href="/deletejogo?id=<%= jogo.idjogo  %>">Excluir</a>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-title">
+                                                <%= jogo.nome_time1 %> <strong>
+                                                        <%= jogo.pontos_time1 %>
+                                                    </strong> X <strong>
+                                                        <%= jogo.pontos_time2 %>
+                                                    </strong>
+                                                    <%= jogo.nome_time2 %>
+                                            </p>
+                                            <div>
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                                <small>
+                                                    <%= jogo.data %>
+                                                </small>
+                                            </div>
+                                            <div>
+                                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                                <small>
+                                                    <%= jogo.estadio %>
+                                                </small>
+                                            </div>
+                                            <div>
+                                                <i class="fa fa-users" aria-hidden="true"></i>
+                                                <small>
+                                                    <%= jogo.nomeCategoria %>
+                                                </small>
+                                                <i class="fa fa-venus-mars" aria-hidden="true"></i>
+                                                <small>
+                                                    <%= jogo.sexo===0 ? 'MASCULINO' : 'FEMININO' %>
+                                                </small>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="card-body">
-                                        <p class="card-title">
-                                            <%= jogo.nome_time1 %> <strong>
-                                                    <%= jogo.pontos_time1 %>
-                                                </strong> X <strong>
-                                                    <%= jogo.pontos_time2 %>
-                                                </strong>
-                                                <%= jogo.nome_time2 %>
-                                        </p>
-                                        <small class="card-text">
-                                            <%= jogo.data %>
-                                                <%= jogo.estadio %>
-                                        </small>
-                                    </div>
-                                </div>
-                                <%})%>
+                                    <%})%>
+                            </div>
                         </div>
                     </section>
             </article>
@@ -81,8 +134,6 @@
                 }
             })
         </script>
-
-
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
