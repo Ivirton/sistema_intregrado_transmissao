@@ -29,6 +29,7 @@ function enviarJogoSocket(id_transmissao, entidade, valor_entidade, atributo, va
 const appp = createApp({
   data() {
     return {
+      loading: true, // Adicione um estado de loading
       transmisao: {
         id_placar: 0,
         id_transmissao: 0,
@@ -183,4 +184,6 @@ const appp = createApp({
     }
   },
 }).mount('#app')
-
+setTimeout(() => {
+  loader.style.display = 'none'; // Ocultar o loader depois que os dados estiverem prontos
+}, 5000); // Ajuste o tempo conforme necessário
