@@ -17,46 +17,26 @@
         <div id="app">
             <article class="body">
                 <%- include('./components/modal/jogoModal.ejs')%>
-
                     <section class="">
-
                         <div class="coluna">
-
-                            <section style="width: 73%;margin-left: auto;margin-right: auto;margin-bottom: 12px;">
-                                <div class="linha"
-                                    style="justify-content: space-around;color: white;margin-left: auto;margin-right: auto;">
-
-                                    <div class="dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle" type="button"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            Categoria
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                            </li>
-                                            <% categorias.forEach(categoria=> { %>
-                                                <li>
-                                                    <a class="dropdown-item" href="/jogos/<%= categoria.id_categoria%>">
-                                                        <%= categoria.nome %> -
-                                                            <% if (categoria.sexo===0) { %>
-                                                                MASCULINO
-                                                                <% } else if (categoria.sexo===1) { %>
-                                                                    FEMININO
-                                                                    <% } %>
-                                                    </a>
-                                                </li>
-                                                <% })%>
-                                        </ul>
-                                    </div>
-                                    <button type="button" class="btn btn-light" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal" data-bs-whatever="@mdo">Novo</button>
-                                </div>
-
-                            </section>
-
-
+                            <div class="linha">
+                                <select class="form-select" id="jogosCategoria">
+                                    <% categorias.forEach(categoria=> { %>
+                                        <option value="<%= categoria.id_categoria %>">
+                                            <%= categoria.nome %> -
+                                                <% if (categoria.sexo===0) { %>
+                                                    MASCULINO
+                                                    <% } else if (categoria.sexo===1) { %>
+                                                        FEMININO
+                                                        <% } %>
+                                        </option>
+                                        <% }) %>
+                                </select>
+                                <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal" data-bs-whatever="@mdo" style="margin-right: 5px;margin-left: 5px;">Novo</button>
+                            
+                            </div>
                             <div style="display: flex; flex-wrap: wrap;  justify-content: space-evenly;">
-
                                 <% jogos.forEach(jogo=> { %>
                                     <div class="card bg-light mb-3" style="max-width: 25rem;">
                                         <div class="card-header">
@@ -77,6 +57,7 @@
                                                             <% })%>
                                                     </ul>
                                                 </div>
+
                                                 <a href="/deletejogo?id=<%= jogo.idjogo  %>"><i class="fa fa-times"
                                                         aria-hidden="true"></i></a>
                                             </div>
@@ -133,6 +114,12 @@
                     time2.value = 0
                 }
             })
+            const jogosCategoria = document.getElementById('jogosCategoria')
+            jogosCategoria.value = "<%= id_categoria %>"
+            jogosCategoria.addEventListener('change', () => {
+                window.location = "/jogos/" + jogosCategoria.value
+            })
+
         </script>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

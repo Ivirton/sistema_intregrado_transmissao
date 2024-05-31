@@ -22,11 +22,7 @@ body {
   box-sizing: border-box;
   color: rgb(34, 33, 33);
 }
-.form-select {
-  width: 122px;
-  transition: none;
-  font-size: 10pt;
-}
+
 .logo{
   width: 65px;
 }
