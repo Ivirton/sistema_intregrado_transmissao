@@ -37,20 +37,19 @@
               <div class="form-group">
                 <label for="">Cateroria</label>
                 <select class="form-control" name="id_categoria" required>
-                  <% categorias.forEach(categoria => { %>
-                      <option 
-                          <% if (categoria.id_categoria === time.id_categoria) { %> selected="selected" <% } %>
-                          value="<%= categoria.id_categoria %>">
-                          <%= categoria.nome %> - 
-                          <% if (categoria.sexo === 0) { %>
+                  <% categorias.forEach(categoria=> { %>
+                    <option <% if (categoria.id_categoria===time.id_categoria) { %> selected="selected" <% } %>
+                        value="<%= categoria.id_categoria %>">
+                          <%= categoria.nome %> -
+                            <% if (categoria.sexo===0) { %>
                               MASCULINO
-                          <% } else if (categoria.sexo === 1) { %>
-                              FEMININO
-                          <% } %>
-                      </option>
-                  <% }) %>
-              </select>
-            </div>
+                              <% } else if (categoria.sexo===1) { %>
+                                FEMININO
+                                <% } %>
+                    </option>
+                    <% }) %>
+                </select>
+              </div>
               <input type="number" name="id" value="<%= time.id_equipe%>" style="display: none;">
               <div class="linha" style="justify-content: end;">
                 <button class="btn btn-primary " type="submit">Salvar</button>
@@ -102,7 +101,68 @@
         <section class="section card1">
           <div class="linha">
             <h3 class="mb-4">Jogos</h3>
-
+          </div>
+          <div class="coluna">
+            <div style="display: flex; flex-wrap: wrap;  justify-content: space-evenly;">
+              <% jogos.forEach(jogo=> { %>
+                <div class="card bg-light mb-3" style="max-width: 25rem;">
+                  <div class="card-header">
+                    <div class="linha">
+                      <div class="dropdown">
+                        <button class="btn btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          Transmissão
+                        </button>
+                        <ul class="dropdown-menu">
+                          <% transmisoes.forEach(transmisao=> { %>
+                            <li>
+                              <a class="dropdown-item"
+                                href="/transmisao?id=<%= transmisao.id_transmissao%>&idjogo= <%= jogo.idjogo %> ">
+                                <%= transmisao.nome %>
+                              </a>
+                            </li>
+                            <% })%>
+                        </ul>
+                      </div>
+                      <a href="/deletejogo?id=<%= jogo.idjogo  %>"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-title">
+                      <%= jogo.nome_time1 %> <strong>
+                          <%= jogo.pontos_time1 %>
+                        </strong> X <strong>
+                          <%= jogo.pontos_time2 %>
+                        </strong>
+                        <%= jogo.nome_time2 %>
+                    </p>
+                    <div>
+                      <i class="fa fa-calendar" aria-hidden="true"></i>
+                      <small>
+                        <%= jogo.data %>
+                      </small>
+                    </div>
+                    <div>
+                      <i class="fa fa-map-marker" aria-hidden="true"></i>
+                      <small>
+                        <%= jogo.estadio %>
+                      </small>
+                    </div>
+                    <div>
+                      <i class="fa fa-users" aria-hidden="true"></i>
+                      <small>
+                        <%= jogo.nomeCategoria %>
+                      </small>
+                      <i class="fa fa-venus-mars" aria-hidden="true"></i>
+                      <small>
+                        <%= jogo.sexo===0 ? 'MASCULINO' : 'FEMININO' %>
+                      </small>
+                    </div>
+                  </div>
+                </div>
+                <%})%>
+            </div>
+          </div>
           </div>
         </section>
       </article>

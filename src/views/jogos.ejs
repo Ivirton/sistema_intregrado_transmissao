@@ -36,6 +36,7 @@
                                     data-bs-target="#exampleModal" data-bs-whatever="@mdo" style="margin-right: 5px;margin-left: 5px;">Novo</button>
                             
                             </div>
+                            
                             <div style="display: flex; flex-wrap: wrap;  justify-content: space-evenly;">
                                 <% jogos.forEach(jogo=> { %>
                                     <div class="card bg-light mb-3" style="max-width: 25rem;">
@@ -57,7 +58,6 @@
                                                             <% })%>
                                                     </ul>
                                                 </div>
-
                                                 <a href="/deletejogo?id=<%= jogo.idjogo  %>"><i class="fa fa-times"
                                                         aria-hidden="true"></i></a>
                                             </div>
