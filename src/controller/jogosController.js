@@ -26,7 +26,7 @@ const jogoController = {
     },
     findCategoria: async (req, res) => {
         try {
-            const query = `select Jogo.idjogo, jogo.id_equipe1,jogo.id_equipe2,Jogo.data, time1.nome  as nome_time1, pontos_time1, time2.nome as nome_time2 ,pontos_time2,estadio.nome as estadio,Categoria.nome as nomeCategoria,Categoria.id_categoria,Categoria.sexo from Jogo ,Times AS time1,Times as time2,estadio,Categoria WHERE Jogo.id_equipe1 = time1.id_equipe and time2.id_equipe = Jogo.id_equipe2 and estadio.idestadio = Jogo.idestadio and Categoria.id_categoria = Jogo.id_categoria  and Categoria.id_categoria = ${req.params.categoria} order by jogo.data ASC`
+            const query = `select Jogo.idjogo, jogo.id_equipe1,jogo.id_equipe2,Jogo.data, time1.nome  as nome_time1, pontos_time1, time2.nome as nome_time2 ,pontos_time2,estadio.nome as estadio,Categoria.nome as nomeCategoria,Categoria.id_categoria,Categoria.sexo from Jogo ,Times AS time1,Times as time2,estadio,Categoria WHERE Jogo.id_equipe1 = time1.id_equipe and time2.id_equipe = Jogo.id_equipe2 and estadio.idestadio = Jogo.idestadio and Categoria.id_categoria = Jogo.id_categoria  and Categoria.id_categoria = ${req.params.categoria} order by jogo.data DESC`
 
             const jogos = await database.query(query)
             const estadios = await Estadio.findAll({ order: [['nome', 'ASC']] })
@@ -52,8 +52,9 @@ const jogoController = {
     },
     delete: async (req, res) => {
         try {
+            req.query.categoria
             await Jogo.destroy({ where: { idjogo: req.query.id } })
-            res.redirect('/jogos');
+            res.redirect('/jogos/'+ req.query.categoria);
         } catch (erro) {
             console.log(erro)
         }
