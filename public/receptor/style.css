@@ -1,9 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jersey+25&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Teko:wght@300..700&display=swap');
 
+@font-face {
+    font-family: 'DS-DIGI';
+    src: url('font/DS-DIGIB.TTF') format('truetype');
+    font-weight: 700;
+  }
 * {
 
-    font-family: "Montserrat", sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
     font-optical-sizing: auto;
+    font-style: normal;
     color: #fff;
     box-sizing: border-box;
     padding: 0;
@@ -31,7 +38,7 @@
     /* box-shadow: -4px 5px 10px rgb(0 0 0 / 10%); */
     text-align: center;
     z-index: 999;
-    /* border: 1px solid #dedfdc1f; */
+    border: 1px solid #aaff00ad;
     overflow: hidden;
     backdrop-filter: blur(25px);
 
@@ -66,7 +73,12 @@
     margin-right: 15px;
 }
 
+.time{
+    font-family: "DS-DIGI";
+    font-size: 18px;
+}
 .points {
+    color: rgb(6, 255, 6);
     width: 50px;
     margin-left: 2px;
     margin-right: 2px;
@@ -74,6 +86,7 @@
     padding: 0px 10px 0px 10px;
     position: relative;
     transition: transform 0.5s ease, opacity 0.5s ease;
+    font-family: "DS-DIGI";
 
 }
 

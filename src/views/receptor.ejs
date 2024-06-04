@@ -19,16 +19,15 @@
         <main class="widgets_content">
             <section v-show="transmisao.placar_visibilidade" class="glass scorebord"
                 :style="{ left: transmisao.placar_x + 'vw', top: transmisao.placar_y + 'vh',zoom: transmisao.placar_z + '%'}">
-                <strong>{{jogo.partida}}t</strong>
+                <strong >{{jogo.partida}}t</strong>
                 <div class="cronometro">
-                    <strong>{{ transmisao.minuto < 10 ? '0' + transmisao.minuto : transmisao.minuto }}</strong>
-                            <strong>:</strong>
-                            <strong>{{ transmisao.segundo < 10 ? '0' + transmisao.segundo : transmisao.segundo
-                                    }}</strong>
+                    <strong >{{ transmisao.minuto < 10 ? '0' + transmisao.minuto : transmisao.minuto }}</strong>
+                    <strong >:</strong>
+                    <strong >{{ transmisao.segundo < 10 ? '0' + transmisao.segundo : transmisao.segundo}}</strong>
                 </div>
                 |
                 <strong class="name">{{jogo.nome_time1}}</strong>
-                <strong class="points glass">{{jogo.pontos_time1}}</strong>
+                <strong class="points  glass">{{jogo.pontos_time1}}</strong>
                 <strong class="points glass">{{jogo.pontos_time2}}</strong>
                 <strong class="name">{{jogo.nome_time2}}</strong>
 
