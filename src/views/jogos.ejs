@@ -15,29 +15,28 @@
 <body>
     <%- include('./components/header.ejs',{href:"categoria",titulo:"Jogos"})%>
         <div id="app">
-            <article class="body" style="width: 100%;">
+            <article class="body" style="width: 60%;">
                 <%- include('./components/modal/jogoModal.ejs')%>
                     <section class="">
-                        <div class="coluna">
-                            <div class="linha">
-                                <select class="form-select" id="jogosCategoria">
-                                    <% categorias.forEach(categoria=> { %>
-                                        <option value="<%= categoria.id_categoria %>">
-                                            <%= categoria.nome %> -
-                                                <% if (categoria.sexo===0) { %>
-                                                    MASCULINO
-                                                    <% } else if (categoria.sexo===1) { %>
-                                                        FEMININO
-                                                        <% } %>
-                                        </option>
-                                        <% }) %>
-                                </select>
-                                <button type="button" class="btn btn-light" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal" data-bs-whatever="@mdo" style="margin-right: 5px;margin-left: 5px;">Novo</button>
-                            
-                            </div>
-                            
-                            <div style="display: flex; flex-wrap: wrap;  justify-content: space-evenly;">
+                        <div class="linha" style="max-width: 25rem;">
+                            <select class="form-select" id="jogosCategoria">
+                                <% categorias.forEach(categoria=> { %>
+                                    <option value="<%= categoria.id_categoria %>">
+                                        <%= categoria.nome %> -
+                                            <% if (categoria.sexo===0) { %>
+                                                MASCULINO
+                                                <% } else if (categoria.sexo===1) { %>
+                                                    FEMININO
+                                                    <% } %>
+                                    </option>
+                                    <% }) %>
+                            </select>
+                            <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal" data-bs-whatever="@mdo" style="margin-right: 5px;margin-left: 5px;">Novo</button>
+                        
+                        </div>  
+                        <div class="coluna">                      
+                            <div style='max-width: 713px;display: flex;flex-wrap: wrap;justify-content: center;'>
                                 <% jogos.forEach(jogo=> { %>
                                     <div class="card bg-light mb-3" style="max-width: 25rem;">
                                         <div class="card-header">
